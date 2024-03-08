@@ -1,0 +1,35 @@
+@using APG_CRM.Web.Models
+@using APG_CRM.Data.Entities
+@model SurveySearchViewModel
+
+<section class="survey-search-section mt-3 mb-3">
+    <div class="card">
+        <div class="card-header">
+            <h5>Search Surveys</h5>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Survey" asp-action="Index" method="get" class="form-inline">
+
+                <!-- Search Input -->
+                <div class="form-group mr-2">
+                    <label for="searchTerm" class="mr-2">Search Term:</label>
+                    <input type="text" class="form-control" id="searchTerm" name="searchTerm"
+                        placeholder="Search surveys..." value="@Model.SearchTerm">
+                </div>
+                <!-- Filter by Date Range -->
+                <div class="form-group mr-2">
+                    <label for="fromDate" class="mr-2">From Date:</label>
+                    <input type="date" class="form-control" id="fromDate" name="fromDate" value="@Model.FromDate">
+                </div>
+                <div class="form-group mr-2">
+                    <label for="toDate" class="mr-2">To Date:</label>
+                    <input type="date" class="form-control" id="toDate" name="toDate" value="@Model.ToDate">
+                </div>
+
+                <!-- Submit and Reset Buttons -->
+                <button type="submit" class="btn btn-primary mr-2">Search</button>
+                <a asp-controller="Survey" asp-action="Index" class="btn btn-light">Reset</a>
+            </form>
+        </div>
+    </div>
+</section>

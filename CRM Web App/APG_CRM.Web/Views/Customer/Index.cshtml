@@ -1,0 +1,164 @@
+@model APG_CRM.Web.Models.PagedCustomerViewModel
+
+<div class="custom-card-background">
+
+    <div class="d-flex justify-content-center">
+        <div class="custom-card-inner">
+
+            <partial name="_BreadCrumbs" model="@(new[] { ("/", "Home"), ("", "Customers") })" />
+
+            <h1 class="page-header">Customers</h1>
+
+            @if (User.IsInRole("admin") || User.IsInRole("manager"))
+            {
+                <a class="btn btn-sm btn-primary" asp-controller="Customer" asp-action="Create" title="Add Customer"
+                    aria-label="Add Customer">
+                    <i class="bi bi-plus"></i> Add Customer
+                </a>
+            }
+
+            <!-- Search Form -->
+            <form asp-action="Index" method="get" class="mb-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="searchTerm" placeholder="Search for Customers..."
+                        value="@Context.Request.Query["searchTerm"]">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="card rounded shadow p-4 mt-2">
+                <!-- Table for Displaying Customers -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>@Html.ActionLink("ID", "Index", new
+                                    {
+                                        orderBy = "id",
+                                        direction = Model.Direction == "asc" ? "desc"
+                                         : "asc"
+                                    })</th>
+                            <th>@Html.ActionLink("DateEstablished", "Index", new
+                                    {
+                                        orderBy = "DateEstablished",
+                                        direction =
+                                         Model.Direction == "asc" ? "desc" : "asc"
+                                    })</th>
+                            <th>@Html.ActionLink("Name", "Index", new
+                                    {
+                                        orderBy = "Name",
+                                        direction = Model.Direction == "asc" ?
+                                         "desc" : "asc"
+                                    })</th>
+                            <th>@Html.ActionLink("Type", "Index", new
+                                    {
+                                        orderBy = "Type",
+                                        direction = Model.Direction == "asc" ?
+                                         "desc" : "asc"
+                                    })</th>
+                            <th>@Html.ActionLink("Phone", "Index", new
+                                    {
+                                        orderBy = "Phone",
+                                        direction = Model.Direction == "asc" ?
+                                         "desc" : "asc"
+                                    })</th>
+                            <th>@Html.ActionLink("Address", "Index", new
+                                    {
+                                        orderBy = "Address",
+                                        direction = Model.Direction == "asc"
+                                         ? "desc" : "asc"
+                                    })</th>
+                            <th>@Html.ActionLink("Post Code", "Index", new
+                                    {
+                                        orderBy = "Post Code",
+                                        direction = Model.Direction ==
+                                         "asc" ? "desc" : "asc"
+                                    })</th>
+                            <th>@Html.ActionLink("Email", "Index", new
+                                    {
+                                        orderBy = "Email",
+                                        direction = Model.Direction == "asc" ?
+                                         "desc" : "asc"
+                                    })</th>
+                            <th>@Html.ActionLink("Description", "Index", new
+                                    {
+                                        orderBy = "Description",
+                                        direction = Model.Direction
+                                         == "asc" ? "desc" : "asc"
+                                    })</th>
+                            <th>@Html.ActionLink("PaymentTerms", "Index", new
+                                    {
+                                        orderBy = "PaymentTerms",
+                                        direction =
+                                         Model.Direction == "asc" ? "desc" : "asc"
+                                    })</th>
+                            <th>Actions</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var customer in Model.Data)
+                        {
+                            <tr>
+                                <td>@customer.Id</td>
+                                <td>@customer.DateEstablished.ToString("dd/MM/yyyy")</td>
+                                <td>@customer.Name</td>
+                                <td>@customer.Type</td>
+                                <td>@customer.Phone</td>
+                                <td class="wider-column" title="Client Address">@customer.Street @customer.City,
+                                    @customer.County</td>
+                                <td>@customer.PostCode</td>
+                                <td>@customer.Email</td>
+                                <td class="wider-column" title="Client Address"> @customer.Description</td>
+                                <td>@customer.PaymentTerms</td>
+
+                                <!-- Action buttons -->
+                                <div class="expanding-div">
+                                    <td class="align-middle">
+                                        <div class="d-inline-flex">
+                                            <!-- Customer Details button -->
+                                            <a asp-condition="@User.HasOneOfRoles("admin,manager")" asp-action="Details"
+                                                asp-controller="Customer" asp-route-id="@customer.Id"
+                                                class="btn btn-sm btn-outline-light" title="Customer Details">
+                                                <ion-icon name="eye-outline"></ion-icon>
+                                            </a>
+                                            <!-- Edit Customer button -->
+                                            <a asp-condition="@User.HasOneOfRoles("admin,manager")" asp-action="Edit"
+                                                asp-controller="Customer" asp-route-id="@customer.Id"
+                                                class="btn btn-sm btn-outline-dark" title="Edit Customer">
+                                                <i class="bi bi-pen-fill"></i>
+                                            </a>
+                                            <!-- Delete Customer button -->
+                                            <a asp-condition="@User.HasOneOfRoles("admin,manager")" asp-action="Delete"
+                                                asp-controller="Customer" asp-route-id="@customer.Id"
+                                                class="btn btn-sm btn-outline-danger" title="Delete Customer">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                            <!-- Email button -->
+                                            <a href="mailto:@customer.Email" class="btn btn-sm btn-outline-primary"
+                                                title="Send Email">
+                                                <i class="bi bi-envelope-fill"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </div>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <vc:paginator action="Index" rows="@Model.TotalRows" pages="@Model.TotalPages"
+                    current="@Model.CurrentPage" size="@Model.PageSize" />
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>

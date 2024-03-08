@@ -1,0 +1,134 @@
+@model Paged<APG_CRM.Data.Entities.Glass>
+
+<div class="custom-card-background">
+
+    <div class="custom-card-inner">
+        <!-- Bread crumbs area -->
+        <partial name="_BreadCrumbs" model=@(new [] { ("/", "Glass"), ("", "Glasses") }) />
+
+        <div class="col-lg-12 p-2 ">
+            <div class="card rounded shadow p-4 mt-4">
+                <div class="d-flex justify-content-between">
+
+                    @{
+                        ViewData["Title"] = "Glass List";
+                    }
+
+                    <h2>@ViewData["Title"]</h2>
+
+                    @{
+                        Func<string[], bool> userHasRole = roles => roles.Any(role => User.HasOneOfRoles(role));
+                    }
+
+                    <div class="custom-card-inner">
+
+                        <p>
+                            <a asp-action="Create" class="btn btn-primary">Add New Glass</a>
+                        </p>
+
+                        <!-- Search Form -->
+                        <form asp-action="Index" method="get" class="mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="searchTerm"
+                                    placeholder="Search for glass..." value="@Context.Request.Query["searchTerm"]">
+                                <div class="input-group-append">
+                                    <button type="submit" button class="btn btn1">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Table for Displaying Customers -->
+                <div class="card rounded shadow p-4 mt-2">
+
+                    <h3>Glass List</h3>
+                    <p>Showing page @Model.CurrentPage of @Model.TotalPages</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><a asp-action="Index" asp-route-sortBy="Type">@Html.DisplayNameFor(model =>
+                                            model.Data[0].Type)</a>
+                                    </th>
+                                    <th><a asp-action="Index" asp-route-sortBy="Name">@Html.DisplayNameFor(model =>
+                                            model.Data[0].Name)</a>
+                                    </th>
+                                    <th><a asp-action="Index" asp-route-sortBy="Thickness">@Html.DisplayNameFor(model =>
+                                            model.Data[0].Thickness)</a></th>
+                                    <th><a asp-action="Index" asp-route-sortBy="SheetSizeL">@Html.DisplayNameFor(model
+                                            =>
+                                            model.Data[0].SheetSizeL)</a></th>
+                                    <th><a asp-action="Index" asp-route-sortBy="SheetSizeH">@Html.DisplayNameFor(model
+                                            =>
+                                            model.Data[0].SheetSizeH)</a></th>
+                                    <th><a asp-action="Index"
+                                            asp-route-sortBy="PricePerSheet">@Html.DisplayNameFor(model =>
+                                            model.Data[0].PricePerSheet)</a></th>
+                                    <th><a asp-action="Index"
+                                            asp-route-sortBy="BoxSheetQuantity">@Html.DisplayNameFor(model
+                                            =>
+                                            model.Data[0].BoxSheetQuantity)</a></th>
+                                    <th><a asp-action="Index" asp-route-sortBy="SupplierId">@Html.DisplayNameFor(model
+                                            =>
+                                            model.Data[0].SupplierId)</a></th>
+                                    <th>Image</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var glass in Model.Data)
+                                {
+                                    <tr>
+                                        <td>@glass.Type</td>
+                                        <td>@glass.Name</td>
+                                        <td>@glass.Thickness</td>
+                                        <td>@glass.SheetSizeL</td>
+                                        <td>@glass.SheetSizeH</td>
+                                        <td>@glass.PricePerSheet</td>
+                                        <td>@glass.BoxSheetQuantity</td>
+                                        <td>@glass.Supplier?.Name</td>
+                                        <!-- Image cell -->
+                                        <td>
+                                            <img src="@glass.ImageUrl" alt="Glass Image" style="width:100px; height:auto;">
+                                        </td>
+
+                                        <!-- Action buttons -->
+                                        <td class="align-middle">
+                                            <div class="d-inline-flex" style="width: 8rem;" aria-label="glass Actions">
+                                                <div>
+                                                    @if (userHasRole(new[] { "admin", "manager" }))
+                                                    {
+                                                        <a asp-action="Details" asp-controller="glass" asp-route-id="@glass.Id"
+                                                            class="btn btn-sm btn-outline-primary" title="Details">
+                                                            <i class="bi bi-info-circle"></i>
+                                                        </a>
+                                                        <a asp-action="Edit" asp-controller="glass" asp-route-id="@glass.Id"
+                                                            class="btn btn-sm btn-outline-dark" title="Edit">
+                                                            <i class="bi bi-pen-fill"></i>
+                                                        </a>
+                                                        <a asp-action="Delete" asp-controller="glass" asp-route-id="@glass.Id"
+                                                            class="btn btn-sm btn-outline-danger" title="Delete">
+                                                            <i class="bi bi-trash-fill"></i>
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+                        @* <!-- Pagination -->
+                        <vc:paginator action="Index" rows=@Model.TotalRows pages=@Model.TotalPages
+                        current=@Model.CurrentPage size=@Model.PageSize /> *@
+
+                    </div>
+
+            </div>
+        </div>
+
+
+       

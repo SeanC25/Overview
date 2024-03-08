@@ -1,0 +1,93 @@
+@* @model IEnumerable<APG_CRM.Data.Entities.Customer> *@
+@* @model CustomerViewModel *@
+@* @model PagedCustomerViewModel *@
+
+@* @model APG_CRM.Web.Models.PagedCustomerViewModel *@
+
+@* <!-- Customer Selection Modal -->
+<div class="modal fade" id="customerSelectModal" tabindex="-1" role="dialog" aria-labelledby="customerSelectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="customerSelectModalLabel">Select Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> *@
+
+            <div class="modal-body">
+                @if (Model.Customers != null && Model.Customers.Any())
+                {
+                    <table class="table">
+                        @foreach (var customer in Model.Customers)
+                        {
+                            <tr>
+                                <td>@customer.Name</td>
+                                <td>
+                                    <button class="btn btn-primary select-customer" data-customer-id="@customer.Id">Select</button>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+                else
+                {
+                    <p>No customers available.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <script>
+    $(document).ready(function() {
+        $('.select-customer').on('click', function() {
+            var customerId = $(this).data('customer-id');
+            window.location.href = '@Url.Action("Create", "Quotation")?customerId=' + customerId;
+        });
+    });
+</script>
+
+
+@*  *@
+<!-- Example Customer List -->
+<div class="modal fade" id="customerSelectModal" tabindex="-1" role="dialog"
+            aria-labelledby="customerSelectModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="customerSelectModalLabel">Select Customer</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> 
+
+
+@if (Model.Customers != null && Model.Customers.Any())
+{
+    <table class="table">
+        @foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <td>@customer.Name</td>
+                <td>
+                    <button class="btn btn-primary select-customer" data-customer-id="@customer.Id">Select</button>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No customers available.</p>
+} 
+
+
+ @* <script>
+    $(document).ready(function() {
+    $('.select-customer').on('click', function() {
+    var customerId = $(this).data('customer-id');
+    window.location.href = '@Url.Action("Create", "Quotation")?customerId=' + customerId;
+    });
+    });
+    </script>  *@

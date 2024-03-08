@@ -1,0 +1,104 @@
+@model Paged<APG_CRM.Data.Entities.Glass>
+
+@{
+    ViewData["Title"] = "Glass";
+    bool UserHasRole(string[] roles) => roles.Any(User.HasOneOfRoles);
+}
+
+<div class="custom-card-background">
+
+    <div class="d-flex justify-content-center">
+
+        <div class="custom-card-inner">
+
+            <!-- Bread crumbs area -->
+            <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("", "Glasses") }) />
+
+            <h1 class="page-header">@ViewData["Title"]</h1>
+
+            @if (User.IsInRole("admin") || User.IsInRole("manager"))
+            {
+                <a class="btn btn-sm btn-primary" asp-controller="glass" asp-action="Create" title="Add New Glass"
+                    aria-label="Add New Glass">
+                    <i class="bi bi-plus"></i> Add New Glass
+                </a>
+            }
+
+            <!-- Glass List Table -->
+            <table class="table table-striped">
+                <thead>
+
+                    <tr>
+                        @foreach (var header in new[] { "Id","Type", "Name", "Thickness", "SheetSizeL", "SheetSizeH",
+                        "PricePerSheet", "BoxSheetQuantity", "SupplierId", "Image", "Actions" })
+                        {
+                            <th>@header</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var glass in Model.Data)
+                    {
+                        <tr>
+                            <td>@glass.Id</td>
+                            <td>@glass.Type</td>
+                            <td>@glass.Name</td>
+                            <td>@glass.Thickness</td>
+                            <td>@glass.SheetSizeL</td>
+                            <td>@glass.SheetSizeH</td>
+                            <td>@glass.PricePerSheet</td>
+                            <td>@glass.BoxSheetQuantity</td>
+                            <td>@glass.Supplier?.Name</td>
+                            <td><img src="@glass.ImageUrl" alt="Glass Image" style="width:100px; height:auto;"></td>
+
+                            <!-- Action buttons -->
+                            <td>
+                                <div class="d-inline-flex">
+                                    @if (UserHasRole(new[] { "admin", "manager" }))
+                                    {
+                                        <div class="d-inline-flex" aria-label="glass Actions">
+                                            <a asp-action="Details" asp-route-id="@glass.Id" class="btn btn-primary" title="Details">
+                                                <i class="bi bi-info-circle"></i>
+                                            </a>
+                                            <a asp-action="Edit" asp-route-id="@glass.Id" class="btn btn-sm btn-outline-dark"
+                                                title="Edit"><i class="bi bi-pen-fill"></i></a>
+                                            <a asp-action="Delete" asp-route-id="@glass.Id"
+                                                class="btn btn-sm btn-outline-danger" title="Delete"><i
+                                                    class="bi bi-trash-fill"></i></a>
+                                        </div>
+                                    }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    @for (var i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+
+            <!-- Search Form -->
+            <div class="custom-card">
+                <form asp-action="Index" method="get" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="searchTerm" placeholder="Search for Customers..."
+                            value="@Context.Request.Query["searchTerm"]">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>

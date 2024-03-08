@@ -1,0 +1,124 @@
+@model CreateSupplierViewModel
+
+@{
+    ViewData["Title"] = "Create Supplier";
+}
+
+<div class="custom-card-background">
+    <div class="d-flex justify-content-center">
+        <div class="custom-card-inner">
+            <!-- Display BreadCrumbs for Create Supplier -->
+             <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Supplier", "Suppliers"),("", "Create New Supplier") }) />
+            <h1 class="page-header">@ViewData["Title"]</h1>
+
+            <form asp-action="Create" method="post">
+                <div class="row">
+                    <!-- Supplier Basic Information -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">Supplier Basic Information</div>
+                            <div class="card-body">
+                                <!-- Supplier Name and Main Contact Name -->
+                                <div class="form-group">
+                                    <label asp-for="Name">Supplier Name</label>
+                                    <input asp-for="Name" class="form-control" placeholder="Enter supplier's name" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="MainContactName">Main Contact Name</label>
+                                    <input asp-for="MainContactName" class="form-control" placeholder="Enter main contact person's name" />
+                                    <span asp-validation-for="MainContactName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address Information -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">Address Information</div>
+                            <div class="card-body">
+                                <!-- Address, City, and Post Code -->
+                                <div class="form-group">
+                                    <label asp-for="Address">Supplier Address</label>
+                                    <input asp-for="Address" class="form-control" placeholder="Enter supplier's address" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="City">City</label>
+                                    <input class="form-control" list="cityList" id="cityInput" name="City" placeholder="Select or type a city">
+                                    <!-- City list here -->
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PostCode">Post Code</label>
+                                    <input asp-for="PostCode" class="form-control" placeholder="Enter postal code" />
+                                    <span asp-validation-for="PostCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Contact Information -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">Contact Information</div>
+                            <div class="card-body">
+                                <!-- Phone and Email -->
+                                <div class="form-group">
+                                    <label asp-for="Phone">Phone Number</label>
+                                    <input asp-for="Phone" class="form-control" placeholder="Enter contact number" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Email">Email Address</label>
+                                    <input asp-for="Email" type="email" class="form-control" placeholder="Enter email address" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">Additional Information</div>
+                            <div class="card-body">
+                                <!-- Website and Notes -->
+                                <div class="form-group">
+                                    <label asp-for="Website">Website Address</label>
+                                    <input asp-for="Website" class="form-control" placeholder="Enter website URL" />
+                                    <span asp-validation-for="Website" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Notes">Supplier Notes</label>
+                                    <textarea asp-for="Notes" class="form-control" placeholder="Please add any notes or details about this supplier"></textarea>
+                                    <span asp-validation-for="Notes" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Create Supplier</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Additional JavaScript, if needed
+    </script>
+}

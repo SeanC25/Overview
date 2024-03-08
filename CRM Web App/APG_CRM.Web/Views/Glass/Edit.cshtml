@@ -1,0 +1,68 @@
+@model APG_CRM.Data.Entities.Glass
+
+@{
+    ViewData["Title"] = "Update Glass";
+}
+
+<div class="custom-card-background">
+
+    <div class="d-flex justify-content-center">
+
+       <div class="custom-card-inner">
+        <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Glass", "Glass"), ("", " Update Glass ") }) />
+
+            <h1 class="page-header">@ViewData["Title"] </h1>
+
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" /> <!-- Required to keep track of which glass item is being edited -->
+
+                <div class="form-group">
+                    <label asp-for="Type">Glass Type</label>
+                    <select asp-for="Type"
+                        asp-items="Html.GetEnumSelectList<APG_CRM.Data.Entities.GlassType>()"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Thickness">Thickness</label>
+                    <input asp-for="Thickness" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="SheetSizeL">Sheet Size Length</label>
+                    <input asp-for="SheetSizeL" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="SheetSizeH">Sheet Size Height</label>
+                    <input asp-for="SheetSizeH" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PricePerSheet">Price Per Sheet</label>
+                    <input asp-for="PricePerSheet" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="BoxSheetQuantity">Box Sheet Quantity</label>
+                    <input asp-for="BoxSheetQuantity" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="SupplierId">Supplier ID</label>
+                    <input asp-for="SupplierId" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

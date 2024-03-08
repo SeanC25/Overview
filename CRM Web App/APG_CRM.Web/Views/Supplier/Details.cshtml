@@ -1,0 +1,106 @@
+@model APG_CRM.Data.Entities.Supplier
+
+
+@{
+    ViewData["Title"] = "Supplier Details";
+}
+
+<div class="custom-card-background">
+
+    <div class="d-flex justify-content-center">
+
+        <div class="custom-card-inner">
+                 <!-- Display BreadCrumbs -->
+            <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Supplier", "Suppliers"), ($"", $"Supplier Name: {Model.Name}"), })></partial>
+
+            <h1 class="page-header">@ViewData["Title"]</h1>
+
+            <div class="details-container">
+                <div class="row">
+                    <!-- Left Column -->
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header">Basic Information</div>
+                            <div class="card-body">
+                                <dl>
+                                    <dt>ID:</dt>
+                                    <dd>@Model.Id</dd>
+
+                                    <dt>Date Added:</dt>
+                                    <dd>@Model.DateAdded.ToString("MM/dd/yyyy")</dd>
+
+                                    <dt>Supplier Name:</dt>
+                                    <dd>@Model.Name</dd>
+
+                                    <dt>Main Contact:</dt>
+                                    <dd>@Model.MainContactName</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-header">Contact Information</div>
+                            <div class="card-body">
+                                <dl>
+                                    <dt>Address:</dt>
+                                    <dd>@Model.Address</dd>
+
+                                    <dt>City:</dt>
+                                    <dd>@Model.City</dd>
+
+                                    <dt>Post Code:</dt>
+                                    <dd>@Model.PostCode</dd>
+
+                                    <dt>Phone:</dt>
+                                    <dd>@Model.Phone</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Additional Information -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">Additional Information</div>
+                            <div class="card-body">
+                                <dl>
+                                    <dt>Website:</dt>
+                                    <dd>@Model.Website</dd>
+
+                                    <dt>Email:</dt>
+                                    <dd>@Model.Email</dd>
+
+                                    <dt>Notes:</dt>
+                                    <dd>@Model.Notes</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation area at the bottom of the page -->
+            <div class="navigation-area mt-5">
+                <a asp-controller="Supplier" asp-action="Index" class="btn btn-light">Back to Supplier List</a>
+                <a asp-controller="Supplier" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit
+                    Supplier</a>
+                <a href="mailto:@Model.Email" class="btn btn-sm btn-primary" title="Send Email">
+                                    <i class="bi bi-envelope-fill"></i>
+                 </a>
+            
+                <a asp-controller="Supplier" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete
+                    Supplier</a>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <div

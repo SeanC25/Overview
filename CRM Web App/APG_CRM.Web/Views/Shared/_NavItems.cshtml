@@ -1,0 +1,391 @@
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <!-- Home -->
+    <li class="nav-item">
+        <a asp-controller="Home" asp-action="Index" title="Go to Home page" aria-label="Go to Home page">
+            <img src="/Images/APG CRM.svg" class="img-fluid center-block" width="300" height="300"
+                alt="APG CRM Logo and Home button">
+        </a>
+    </li>
+
+    @* Admin Dashboard accessible for admin, survey, and managers *@
+    @if (User.Identity.IsAuthenticated && IsUserInRoles("admin", "manager", "survey"))
+
+
+
+
+
+
+
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="adminDashboardDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                @if (IsUserInRoles("admin"))
+
+
+
+
+
+
+
+                {
+                    @:Admin Dashboard
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                else if (IsUserInRoles("manager"))
+
+
+
+
+
+
+
+                {
+                    @:Manager Dashboard
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                else if (IsUserInRoles("survey"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {
+                    @:Survey Dashboard
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                else
+
+
+
+
+
+
+
+                {
+                    @:Dashboard
+                }
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="adminDashboardDropdown">
+                @if (IsUserInRoles("admin", "manager"))
+
+
+
+                {
+                    <li>
+                        <a class="dropdown-item" asp-controller="Customer" asp-action="Index" title="Go to Customers page"
+                            aria-label="Go to Customers page"> Customers
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Quotation" asp-action="Index" title="Go to Quotations page"
+                            aria-label="Go to Quotations page"> Quotation
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Survey" asp-action="Index" title="Go to Surveys page"
+                            aria-label="Go to Surveys page"> Survey
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" asp-controller="Glass" asp-action="Index" title="Go to Glass page"
+                            aria-label="Go to Glass page"> Glass
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Supplier" asp-action="Index" title="Go to Suppliers page"
+                            aria-label="Go to Suppliers page"> Supplier
+                        </a>
+                    </li>
+
+                }
+
+                @if (IsUserInRoles("manager"))
+
+                {
+                    <li>
+                        <a class="dropdown-item" asp-controller="User" asp-action="Index" title="Go to Users page"
+                            aria-label="Go to Users page">Users
+                        </a>
+                    </li>
+                }
+
+                @if (IsUserInRoles("survey"))
+
+                {
+                    <li>
+                        <a class="dropdown-item" asp-controller="Survey" asp-action="Index" title="Go to Surveys page"
+                            aria-label="Go to Surveys page"> Survey
+                        </a>
+                    </li>
+
+                }
+
+            </ul>
+
+        </li>
+    }
+
+    <!-- More Info accessible by all -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="infoDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            More Info
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="infoDropdown">
+            <li><a class="dropdown-item" asp-controller="Home" asp-action="Privacy" title="Go to Privacy page"
+                    aria-label="Go to Privacy page">Privacy</a></li>
+            <li><a class="dropdown-item" asp-controller="Home" asp-action="About" title="Go to About page"
+                    aria-label="Go to About page">About</a></li>
+        </ul>
+    </li>
+</ul>
+
+@functions {
+    bool IsUserInRoles(params string[] roles)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return roles.Any(role => User.IsInRole(role));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+}

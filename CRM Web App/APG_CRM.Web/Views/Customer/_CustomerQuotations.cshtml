@@ -1,0 +1,73 @@
+@model IEnumerable<APG_CRM.Data.Entities.Quotation>
+
+<h3 class="text-center">ALL Customer Quotations: </h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Price</th>
+            <th>WorkType</th>
+            <th>Urgency</th>
+            <th>Prospect</th>
+            <th>RequiresSurvey</th>
+            <th>DeliveryRequired</th>
+            <th>Quote Sent Date</th>
+            <th>Quote Follow Up</th>
+            <th>Accepted</th>
+            <th>Response</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var quot in Model)
+        {
+            <tr>
+                <td>@quot.Date.ToString("dd/MM/yyyy")</td>
+                <td>@quot.Title</td>
+                <td>@quot.Status</td>
+                <td>@quot.Price.ToString("C")</td>
+                <td>@quot.WorkType</td>
+                <td>@quot.Urgency</td>
+                <td>@quot.UrgencyClassification</td>
+
+                <td>@quot.RequiresSurvey</td>
+                <td>@quot.DeliveryRequired</td>
+                <td>@quot.QuoteSentDate?.ToString("dd/MM/yyyy")</td>
+                <td>@quot.QuoteFollowDate?.ToString("dd/MM/yyyy")</td>
+                <td>@quot.Accepted</td>
+                <td>@quot.Response</td>
+
+                <!-- Action buttons -->
+                <td class="align-middle">
+                    <div class="d-inline-flex">
+                        <!-- Details Button -->
+                        <a asp-action="Details" asp-controller="Quotation" asp-route-id="@quot.Id"
+                            class="btn btn-sm btn-outline-light" title="Quotation Details">
+                            <ion-icon name="eye-outline"></ion-icon>
+                        </a>
+
+                        <!-- Edit and Delete Buttons (conditionally rendered based on user role) -->
+                        @if (User.HasOneOfRoles("admin,manager"))
+                        {
+                            <a asp-action="Edit" asp-controller="Quotation" asp-route-id="@quot.Id"
+                                class="btn btn-sm btn-outline-dark" title="Edit Quotation">
+                                <i class="bi bi-pen-fill"></i>
+                            </a>
+
+                            <!-- Delete Customer button -->
+                            <a asp-action="Delete" asp-controller="Customer" asp-route-id="@quot.Id"
+                                class="btn btn-sm btn-outline-danger" title="Delete Customer">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Add Pagination here if needed -->
+</div>

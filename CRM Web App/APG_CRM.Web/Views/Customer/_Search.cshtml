@@ -1,0 +1,10 @@
+@model CustomerScanViewModel
+
+<!-- Check form for Customers-->
+<form asp-controller="Customer" asp-action="ScanIndex" class="d-flex flex-row align-items-center">
+
+    <!-- Search/Scan Bar -->
+    <input class="form-control me-2" asp-for="Check" placeholder="Search for Customer">
+   
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>

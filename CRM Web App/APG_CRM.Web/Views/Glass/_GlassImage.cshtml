@@ -1,0 +1,88 @@
+@model APG_CRM.Data.Entities.Glass
+
+@{
+    ViewData["Title"] = "Glass Image"; // Ensure this is set in the controller
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Conditional rendering of the image name -->
+<div>
+    @{
+        var imgText = ""; // Use null-conditional operators to prevent NullReferenceException
+        if (Model?.ImageUrl?.EndsWith("/0.png") == true)
+        {
+            imgText = "No Image for " + Model.Name.Trim();
+        }
+        else
+        {
+            imgText = "Image of " + Model.Name.Trim();
+        }
+    }
+    <!-- Display the image text -->
+    <p>@imgText</p>
+</div>
+
+<div class="image-container">
+    <!-- Conditional rendering of the image based on the ImageUrl -->
+    @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+    {
+        <img src="@Model.ImageUrl" class="img-fluid" alt="@imgText" />
+    }
+    else
+    {
+        <span class="text-info">No photo available</span>
+    }
+
+
+    @{
+        ViewData["Title"] = "Glass Image"; // Ensure this is set in the controller
+    }
+</div>
+
+<div class="image-container">
+@* Carousel for Images *@
+
+@if (Model?.Images != null && Model.Images.Any())
+{
+    <h2>Images Carousel</h2>
+    <div id="glassCarousel" class="carousel slide" data-ride="carousel">
+        @* Indicators *@
+        <ol class="carousel-indicators">
+            @for (int i = 0; i < Model.Images.Count; i++)
+            {
+                <li data-target="#glassCarousel" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+            }
+        </ol>
+
+        @* Wrapper for Slides *@
+        <div class="carousel-inner">
+            @{
+                bool isFirstItem = true; // Flag to identify the first item
+            }
+            @foreach (var image in Model.Images)
+            {
+                <div class="carousel-item @(isFirstItem ? "active" : "")">
+                    <img src="@image.Url" class="d-block w-100" alt="Image">
+                </div>
+                isFirstItem = false; // After the first item, set the flag to false
+            }
+        </div>
+
+        @* Left and Right Controls *@
+        <a class="carousel-control-prev" href="#glassCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#glassCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+}
+else
+{
+    <span class="text-info">No photos available</span>
+}
+
+</div>

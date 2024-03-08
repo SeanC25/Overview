@@ -1,0 +1,161 @@
+@model APG_CRM.Web.Models.PagedQuotationViewModel
+
+<div class="custom-card-background">
+
+    <div class="custom-card-inner">
+
+        <partial name="_BreadCrumbs" model="@(new[] { ("/", "Home"), ("", "Quotations") })" />
+        <h1 class="page-header">Quotations</h1>
+
+        <div class="card rounded shadow p-4 mt-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "id", direction = ViewBag.CurrentSortOrder == "id" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">ID</a>
+                        </th>
+
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "date", direction = ViewBag.CurrentSortOrder == "date" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Date</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "customer", direction = ViewBag.CurrentSortOrder == "customer" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Customer</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "contactdetails", direction = ViewBag.CurrentSortOrder == "contactdetails" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Contact
+                                Details</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "title", direction = ViewBag.CurrentSortOrder == "title" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Quotation
+                                Title</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "status", direction = ViewBag.CurrentSortOrder == "status" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Status</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "quotationtype", direction = ViewBag.CurrentSortOrder == "quotationtype" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Quotation
+                                Type</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "urgency", direction = ViewBag.CurrentSortOrder == "urgency" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Urgency</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "prospect", direction = ViewBag.CurrentSortOrder == "prospect" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Prospect</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "price", direction = ViewBag.CurrentSortOrder == "price" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Price</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "survey", direction = ViewBag.CurrentSortOrder == "survey" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Survey</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "delivery", direction = ViewBag.CurrentSortOrder == "delivery" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Delivery</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "quotesent", direction = ViewBag.CurrentSortOrder == "quotesent" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Quote
+                                Sent</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "followup", direction = ViewBag.CurrentSortOrder == "followup" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Follow
+                                Up</a>
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "accepted", direction = ViewBag.CurrentSortOrder == "accepted" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Accepted
+                        </th>
+                        <th>
+                            <a
+                                href="@Url.Action("Index", new { page = ViewBag.CurrentPage, size = ViewBag.PageSize, orderBy = "response", direction = ViewBag.CurrentSortOrder == "response" && ViewBag.CurrentSortDirection == "asc" ? "desc" : "asc" })">Response
+                        </th>
+
+                        <th>Actions</th> <!-- Actions column might not need sorting -->
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var quot in Model.Data)
+                    {
+                        <tr>
+                            <td>@quot.Id</td>
+                            <td>@quot.Date.ToString("dd/MM/yyyy")</td>
+                            <td>@quot.ContactName</td>
+                            <td>@quot.ContactPhone @quot.ContactEmail</td>
+                            <td>@quot.Title</td>
+                            <td>@quot.Status</td>
+                            <td>@quot.WorkType</td>
+                            <td>@quot.Urgency</td>
+                            <td>@quot.UrgencyClassification</td>
+                            <td>@quot.Price.ToString("C")</td>
+                            <td>@quot.RequiresSurvey</td>
+                            <td>@quot.DeliveryRequired</td>
+                            <td>@quot.QuoteSentDate?.ToString("dd/MM/yyyy")</td>
+                            <td>@quot.QuoteFollowDate?.ToString("dd/MM/yyyy")</td>
+                            <td>@quot.Accepted</td>
+                            <td>@quot.Response</td>
+
+                            <!-- Action buttons -->
+                            <td class="align-middle">
+                                <div class="d-inline-flex">
+                                    <!-- Details Button -->
+                                    <a asp-action="Details" asp-controller="Quotation" asp-route-id="@quot.Id"
+                                        class="btn btn-sm btn-outline-light" title="Quotation Details">
+                                        <ion-icon name="eye-outline"></ion-icon>
+                                    </a>
+
+                                    <!-- Edit Button -->
+                                    @if (User.IsInRole("admin") || User.IsInRole("manager"))
+                                    {
+                                        <a asp-action="Edit" asp-controller="Quotation" asp-route-id="@quot.Id"
+                                            class="btn btn-sm btn-outline-dark" title="Edit Quotation">
+                                            <i class="bi bi-pen-fill"></i>
+                                        </a>
+                                    }
+
+                                    <!-- Delete Button -->
+                                    @if (User.IsInRole("admin") || User.IsInRole("manager"))
+                                    {
+                                        <a asp-action="Delete" asp-controller="Quotation" asp-route-id="@quot.Id"
+                                            class="btn btn-sm btn-outline-danger" title="Delete Quotation">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- Pagination -->
+            <vc:paginator action="Index" rows="@Model.TotalRows" pages="@Model.TotalPages" current="@Model.CurrentPage"
+                size="@Model.PageSize" />
+
+            <!-- Search Form -->
+            <div class="custom-card">
+                <form asp-action="Index" method="get" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="searchTerm"
+                            placeholder="Search these Quotations..." value="@Context.Request.Query["searchTerm"]">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<!-- Creating a template for all page -->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--//  this tag is crucial for responsive web design, ensuring that web content renders well across a variety of devices and screen sizes -->
+    <meta name="description" content="APG CRM Application - Best CRM for managing customer relations effectively" />
+    <title>@ViewData["Title"] APG CRM</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/wwwroot/Images/APG favicon.ico/favicon.ico" type="image/x-icon" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/css/icon.css">
+    <link rel="stylesheet" href="~/css/style.css">
+
+    <!-- Font Awesome stylesheet -->
+    <!-- ///<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" /> -->
+    <!-- <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
+
+    <!-- Leaflet CSS and Leaflet-Control-Geocoder --used for location mapping functionalities. -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+
+    @RenderSection("head", required: false)
+    <!-- this allows individual views to inject additional content into the <head> section of the HTML document. For example, a specific view might need to add a unique script or stylesheet reference that isn't needed globally. -->
+</head>
+
+<style>
+    .container-body {
+        flex: 1;
+    }
+</style>
+
+<body>
+    <!-- Nav bar area -->
+    <nav>
+        <partial name="_Navbar" />
+    </nav>
+
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-link" style="display:none;">Skip to content</a>
+
+    <div>
+
+        <!-- Alert area ensure that the alert message functionality is available across all pages -->
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div class="alert alert-@TempData["AlertType"]">
+                @TempData["AlertMessage"]
+            </div>
+        }
+        <!-- AMC Any alert defined in controller is rendered here -->
+        <partial name="_Alert" />
+
+        <div>
+            <!-- Alert area for example: successful login notification -->
+            <main role="main" id="top-content"> <!-- ID for skip-link -->
+                @RenderBody()
+            </main>
+
+            <footer class="footer">
+                &copy; @DateTime.Now.Year Copyright- APG CRM&copy; -
+                <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </footer>
+        </div>
+
+        <!--js Scripts -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+            crossorigin="anonymous"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/table-scripts.js"></script>
+
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+
+        <!-- Button Icon scripts -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+        <!-- Additional scripts -->
+        @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>

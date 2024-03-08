@@ -1,0 +1,148 @@
+@model Survey
+
+@{
+    ViewData["Title"] = "Update Survey";
+}
+
+<div class="custom-card-background">
+    <div class="d-flex justify-content-center">
+        <div class="custom-card-inner">
+            <!-- breadcrumb -->
+            <partial name="_BreadCrumbs" model=@(new [] { ("/","Home"), ("/Surveys", "Surveys"), ("", "Edit Survey")
+                }) />
+
+            <!-- Highlighting criticality -->
+            <div class="alert alert-danger" role="alert">
+                <strong>Warning!</strong> Edit Survey is used by admin to make changes to the survey however its main
+                purpose is for the survey team to complete the on-site survey by filling in the survey Description.
+            </div>
+
+            <h1 class="page-header">@ViewData["Title"]</h1>
+
+            <form asp-controller="Survey" asp-action="Edit" method="post" class="needs-validation" novalidate>
+                <!-- Hidden field for Survey ID -->
+                <input type="hidden" asp-for="Id" />
+
+                <!-- Survey Schedule Information -->
+                <div class="card mb-3">
+                    <div class="card-header">Survey Schedule Information</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="RequestDate">Request Date</label>
+                            <input type="date" class="form-control" asp-for="RequestDate" required />
+                            <div class="invalid-feedback">Please enter a valid request date.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ScheduleDate">Schedule Date</label>
+                            <input type="date" class="form-control" asp-for="ScheduleDate" required />
+                            <div class="invalid-feedback">Please enter a valid schedule date.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Survey Location Information -->
+                <div class="card mb-3">
+                    <div class="card-header"> Survey Location Information</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="Street">Street</label>
+                            <input type="text" class="form-control" asp-for="Street" required />
+                            <div class="invalid-feedback">Please enter the street address.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="City">City</label>
+                            <input type="text" class="form-control" asp-for="City" required />
+                            <div class="invalid-feedback">Please enter the city.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="County">County</label>
+                            <input type="text" class="form-control" asp-for="County" required />
+                            <div class="invalid-feedback">Please enter the county.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PostCode">PostCode</label>
+                            <input type="text" class="form-control" asp-for="PostCode" required pattern="\d{5}"
+                                title="5-digit postal code" />
+                            <div class="invalid-feedback">Please enter a valid postcode.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Survey Contact Information -->
+                <div class="card mb-3">
+                    <div class="card-header">Survey Contact Information</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="SurveyPhone">Survey Phone</label>
+                            <input type="tel" class="form-control" asp-for="SurveyPhone" required pattern="\d{10}"
+                                title="10-digit phone number without dashes or spaces" />
+                            <div class="invalid-feedback">Please enter a valid phone number.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pre Survey Information -->
+                <div class="card mb-3">
+                    <div class="card-header">Pre Survey Information</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="PreSurveyNotes">Pre Survey Notes</label>
+                            <textarea class="form-control" asp-for="PreSurveyNotes" rows="4" required></textarea>
+                            <div class="invalid-feedback">Please provide the pre-survey notes.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- On Site Survey Information -->
+                <div class="card mb-3">
+                    <div class="card-header">On Site Survey Information</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="Description"> On Site Description of work details</label>
+                            <textarea class="form-control" asp-for="PreSurveyNotes" rows="4" required></textarea>
+                            <div class="invalid-feedback">Please provide On Site Description of work details.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PreSurveyNotes">Risk Assessment Notes</label>
+                            <textarea class="form-control" asp-for="PreSurveyNotes" rows="4" required></textarea>
+                            <div class="invalid-feedback">Please provide the pre-survey notes.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="NumStaffRequired">Number of Staff Required to carry out the work invold</label>
+                            <input type="number" class="form-control" id="NumStaffRequired" asp-for="NumStaffRequired"
+                                min="1">
+                            <span asp-validation-for="NumStaffRequired"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="CompletedByWho"> Name of Survey team member who completed the Survey</label>
+                            <input type="text" class="form-control" asp-for="CompletedByWho">
+                            <div class="invalid-feedback">Please enter a valid phone number.</div>
+                            <span asp-validation-for="CompletedByWho"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit and Back Buttons Section -->
+                <div class="card mb-3">
+                    <div class="card-body text-center">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a asp-controller="Survey" asp-action="Index" class="btn btn-secondary">Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Adding jQuery Validation Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>

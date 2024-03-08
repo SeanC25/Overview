@@ -1,0 +1,271 @@
+@model APG_CRM.Web.Models.QuotationViewModel
+
+
+<div class="custom-card-background">
+    
+    <div class="custom-card-inner">
+        <!-- Display BreadCrumbs for Create New Quotation  -->
+        <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Quotation", "Quotations"),("", "Create New Quotation") }) />
+
+        <h1 class="page-header">Create New Quotation</h1>
+
+        <form asp-action="Create" method="post">
+            <!-- Customer Information -->
+
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">Customer Information</div>
+                        <div class="card-body">
+                            <!-- Customer ID -->
+                        <div class="form-group">
+                            <label asp-for="CustomerId">Customer ID</label>
+                            <input asp-for="CustomerId" class="form-control" readonly />
+                            <span asp-validation-for="CustomerId" class="text-danger"></span>
+                        </div>
+
+                        <!-- Contact Name -->
+                        <div class="form-group">
+                            <label asp-for="ContactName">Contact Name</label>
+                            <input asp-for="ContactName" class="form-control" placeholder="Enter contact name, this must be 1st name and last name" value="@Model.Customer.Name" />
+                            <span asp-validation-for="ContactName" class="text-danger"></span>
+                        </div>
+                        <!-- Contact Phone -->
+                        <div class="form-group">
+                            <label asp-for="ContactPhone">Contact Phone</label>
+                            <input asp-for="ContactPhone" class="form-control" placeholder="Enter contact phone" value="@Model.Customer.Phone" />
+                            <span asp-validation-for="ContactPhone" class="text-danger"></span>
+                        </div>
+
+                        <!-- Contact Email -->
+                        <div class="form-group">
+                            <label asp-for="ContactEmail">Contact Email</label>
+                            <input asp-for="ContactEmail" type="email" class="form-control" placeholder="Enter contact email" value="@Model.Customer.Email" />
+                            <span asp-validation-for="ContactEmail" class="text-danger"></span>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card mb-4">
+                <div class="card-header">Key Information</div>
+                <div class="card-body">
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label asp-for="Title"></label>
+                        <input asp-for="Title" class="form-control"
+                            placeholder="Enter a Title for the Project/Quotation" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control"
+                            placeholder="Enter description for the quotation and description of the work being undertaken"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <!-- Work Type -->
+                    <div class="form-group">
+                        <label asp-for="WorkType">Work Type</label>
+                        <select asp-for="WorkType" class="form-control">
+                            <option value="" disabled selected>Select work type</option>
+                            <option value="Supply & install">Supply and Install</option>
+                            <option value="Repair on Site">Repair on Site</option>
+                            <option value="Mirrors">Mirrors</option>
+                            <option value="Standard Glazing">Standard Glazing</option>
+                            <option value="Toughen glass">Toughen Glass</option>
+                        </select>
+                        <span asp-validation-for="WorkType" class="text-danger"></span>
+                    </div>
+
+                    <!-- Quote Price -->
+                    <div class="form-group">
+                        <label asp-for="Price">Quote Price (£)</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">£</span>
+                            </div>
+                            <input asp-for="Price" type="number" step="0.01" min="0" value="0.00" class="form-control"
+                                placeholder="Enter quote price" />
+                        </div>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">Survey and Delivery</div>
+                <div class="card-body">
+                    <!-- Requires Survey -->
+                    <div class="form-group">
+                        <label asp-for="RequiresSurvey"></label>
+                        <select asp-for="RequiresSurvey" class="form-control">
+                            <option value="">-- Select --</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                        <span asp-validation-for="RequiresSurvey" class="text-danger"></span>
+                    </div>
+
+                    <!-- Delivery Required -->
+                    <div class="form-group">
+                        <label asp-for="DeliveryRequired"></label>
+                       <select id="DeliveryRequiredSelect" class="form-control">
+                            <option value="">-- Select --</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                        <span asp-validation-for="DeliveryRequired" class="text-danger"></span>
+                    </div>
+
+                    <!-- Delivery Address -->
+                    <div id="DeliveryAddressField" style="display: none;">
+                        <label asp-for="DeliveryAddress"></label>
+                        <input asp-for="DeliveryAddress" class="form-control" placeholder="Enter delivery address" />
+                        <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Likelihood and Follow-Up Section -->
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">Likelihood and Follow-Up</div>
+                        <div class="card-body">
+                            <!-- Urgency -->
+                            <div class="form-group">
+                                <label asp-for="Urgency"></label>
+                                <input asp-for="Urgency" type="number" class="form-control"
+                                    placeholder="Enter urgency level" />
+                                <span asp-validation-for="Urgency" class="text-danger"></span>
+                            </div>
+
+                            <!-- Urgency Classification (Read-Only) -->
+                            <div class="form-group">
+                                <label asp-for="UrgencyClassification">Urgency Classification</label>
+                                <input asp-for="UrgencyClassification" class="form-control" readonly />
+                            </div>
+
+                            <!-- Status -->
+                            <div class="form-group">
+                                <label asp-for="Status">Status</label>
+                                <select asp-for="Status" class="form-control">
+                                    <option value="Pending">Pending</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Declined">Declined</option>
+                                    <option value="WithCustomer">With Customer</option>
+                                    <option value="InProduction">In Production</option>
+                                    <option value="AwaitingDelivery">Awaiting Delivery</option>
+                                    <option value="ReadyForCollection">Ready for Collection</option>
+                                </select>
+                            </div>
+
+                            <!-- Sent Date -->
+                            <div class="form-group">
+                                <label asp-for="QuoteSentDate"></label>
+                                <input asp-for="QuoteSentDate" type="date" class="form-control" />
+                                <span asp-validation-for="QuoteSentDate" class="text-danger"></span>
+                            </div>
+
+                            <!-- Follow-up Date -->
+                            <div class="form-group">
+                                <label asp-for="QuoteFollowDate"></label>
+                                <input asp-for="QuoteFollowDate" type="date" class="form-control" />
+                                <span asp-validation-for="QuoteFollowDate" class="text-danger"></span>
+                            </div>
+
+                            <!-- Accepted -->
+                            <div class="form-group">
+                                <label asp-for="Accepted"></label>
+                                <select asp-for="Accepted" class="form-control">
+                                    <option value="">-- Select --</option>
+                                    <option value="true">Accepted</option>
+                                    <option value="false">Not Accepted</option>
+                                </select>
+                                <span asp-validation-for="Accepted" class="text-danger"></span>
+                            </div>
+
+                            <!-- Response -->
+                            <div class="form-group">
+                                <label asp-for="Response"></label>
+                                <textarea asp-for="Response" class="form-control"
+                                    placeholder="Provide an update on the current situation with the quote, please provide its status, the reason why it has been accepted or rejected, provide any notes for other sales team members when speaking to this customer about this quote."></textarea>
+                                <span asp-validation-for="Response" class="text-danger"></span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-group">
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary" aria-label="save">Create Quotation</button>
+                        <!-- Cancel button -->
+                        <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+                    </div>
+                </div>
+            </div>
+
+            
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+
+        // Function to toggle the visibility of the Delivery Address field
+         document.addEventListener("DOMContentLoaded", function () {
+            var deliverySelect = document.getElementById('DeliveryRequiredSelect');
+            var deliveryAddressField = document.getElementById('DeliveryAddressField');
+
+            function toggleDeliveryAddress() {
+                if (deliverySelect.value === 'true') {
+                    deliveryAddressField.style.display = 'block';
+                } else {
+                    deliveryAddressField.style.display = 'none';
+                }
+            }
+
+            deliverySelect.addEventListener('change', toggleDeliveryAddress);
+            toggleDeliveryAddress(); // Run on initial load
+        });
+
+
+        // Function to update UrgencyClassification
+        function updateUrgencyClassification() {
+            var urgencyValue = parseInt(document.getElementById("Urgency").value);
+            var classification = "";
+
+            if (urgencyValue < 2) {
+                classification = "Standard Enquiry";
+            } else if (urgencyValue <= 5) {
+                classification = "Strong Prospect";
+            } else if (urgencyValue < 8) {
+                classification = "Returning Customer";
+            } else {
+                classification = "Emergency Glazing";
+            }
+
+            document.getElementById("UrgencyClassification").value = classification;
+        }
+
+        // Attach the onchange event to the Urgency input field
+        document.getElementById("Urgency").onchange = updateUrgencyClassification;
+
+        // Initialize the UrgencyClassification when the page loads
+        updateUrgencyClassification();
+    </script>
+}

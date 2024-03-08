@@ -1,0 +1,248 @@
+/* ================================================================
+   BASE STYLES
+   ================================================================ */
+
+/* HTML Base Font Size */
+html {
+    font-size: 20px;
+  }
+  
+    /* Media query for smaller screens */
+  @media (max-width: 600px) {
+    html {
+      font-size: 16px;
+    }
+  
+    .custom-card-background {
+      padding: 10px;
+    }
+  }
+  
+  /* Generic anchor styling */
+  a {
+    color:#07bae9;
+  }
+  
+  /* Borders */
+  .border-top {
+    border-top: 1px solid #e5e5e5;
+  }
+  
+  .border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  /* Box Shadows */
+  .box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  }
+  
+  /* ================================================================
+    CARD STYLES
+     ================================================================ */
+      body {
+        width: 100%;
+        margin: 5px;
+        padding: 5px;
+        margin-bottom: 0px;
+        background-color:#e5e5e5;
+  
+        /*back ground image code:  
+        margin-bottom: 60px;
+        background-image: url('/images/APGLogo.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed; - fixed- the image stays in place while scrolling */
+      }
+  
+    
+  
+  
+  /* ================================================================
+     CALLOUT STYLES
+     ================================================================ */
+  
+  /* Base callout style */
+  .callout {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid lightgray;
+    border-left-width: .75rem;
+    border-radius: .25rem;
+    }
+  
+    /* Specific callout types */
+  .callout-primary { border-left-color: var(--bs-primary); }
+  .callout-info { border-left-color: var(--bs-info); }
+  .callout-warning { border-left-color: var(--bs-warning); }
+  .callout-danger { border-left-color: var(--bs-danger); }
+  .callout-secondary { border-left-color: var(--bs-secondary); }
+  
+    /* ================================================================
+     HOVER EFFECTS
+     ================================================================ */
+  
+  .hover-effect:hover {
+    font-weight: 600;
+    border-bottom: 2px solid var(--bs-danger);
+    }
+  
+  .hover-effect {
+    border-bottom: 2px solid var(--bs-light);
+    }
+  
+  
+  /* ================================================================
+    TABLE STYLES 
+     ================================================================ */
+  
+  /*-------------------------Custom Table -----------------------------*/
+  /* .custom-table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    color:   #212529;
+    border-collapse: collapse;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  } */
+  
+  .custom-table {
+    width: 80%; /* Adjust this value as needed */
+    max-width: 100%;
+    margin: 0 auto; /* Top and bottom margins are 0, left and right margins are auto */
+    margin-bottom: 20px;   /* Spacing  */
+    color: #212529;
+    border-collapse: collapse;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-table > thead > tr > th,
+  .custom-table > tbody > tr > td {
+    border: 1px solid #dee2e6;
+    padding: 0.75rem;
+  }
+  
+  .custom-table > thead > tr > th {
+    font-weight: bold;
+    background-color: #f7f7f7;
+  }
+  
+  .custom-table > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .custom-table tbody > tr:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+  }
+  
+  
+
+  
+  /* ================================================================
+     FONT STYLES for buttons
+     ================================================================ */
+  
+     .bold-blue-text {
+      color: #07bae9;
+      font-weight: bold;
+  }
+  
+  /* Tick and Cross Badges */
+  .badge-success-tick, .badge-danger-cross {
+    display: inline-flex;
+    padding: 0.25em 0.5em; 
+    font-size: 3rem; 
+    font-family: Arial, sans-serif; 
+  }
+  
+  .badge-success-tick::before { content: "✔"; color: rgb(45, 218, 97); }
+  .badge-danger-cross::before { content: "✖"; color: rgb(235, 15, 15); }
+  
+  
+
+  /* ================================================================
+      Font Styles
+     ================================================================ */
+    
+     p a {
+      font-size: 1.5rem;
+      background-color: #07bae9;
+      margin: 1rem auto;
+      padding: 1rem;
+      text-align: center;
+      font-family: Arial, sans-serif;
+     }
+  
+  
+  
+  /* ================================================================
+       Flexbox - page layout STYLES
+       ================================================================ */
+  
+  .flexbox{
+  display: flex; /* flex-direction: row */
+  flex-wrap: wrap; /* two rows ok now */
+  justify-content: space- between;
+  margin:2rem 0;
+  position: relative; 
+  }
+  
+  /* .flexbox::before{
+  content: 'display: flex';
+  } */
+  
+  .flexbox main {
+  flex-basis:100%;
+  background-color: bisque;
+  Padding:1rem
+  }
+  
+  .Flex section{
+  Flex-basis:50%;
+  margin:1rem 0;
+  padding:1rem;
+  background-color:lightblue;
+  }
+ 
+  .flex section:last-child{
+  background-color: #baba55;  
+}
+
+
+/* CSS Grid - Page Layout Styles */
+
+.grid {
+  display: grid; /* Turns the container into a grid container */
+  grid-template-columns: 1fr 1fr; /* Defines two equal-width columns */
+  grid-template-areas: 
+      "a a"
+      "b b"; /* Defines grid areas named "a" and "b" for the layout */
+  margin: 2rem; /* Adds margin around the grid container */
+}
+
+/* .grid::before{
+  content: 'display grid'
+} */
+
+.grid main {
+  grid-area: a;
+  background-color: #2569a1;
+  padding:1rem;
+}
+
+.grid section :first-of-type{
+  grid-area: b;
+  Flex-basis:50%;
+  margin:1rem 0;
+  padding:1rem;
+  background-color:lightblue;
+}
+
+  .grid section :last-of-type{
+    grid-area: c;
+    Flex-basis:50%;
+    margin:1rem 0;
+    padding:1rem;
+    background-color: #baba55;
+  }

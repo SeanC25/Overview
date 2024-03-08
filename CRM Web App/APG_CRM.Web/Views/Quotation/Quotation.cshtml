@@ -1,0 +1,81 @@
+@* @model Customer
+
+<div class="custom-card-background">
+
+    <div class="custom-card-inner">
+
+        <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Customer", "Customer"),
+            ($"/customer/details/{Model.Id}", $"Customer Name: {Model.Name}"), ("", "Delete Customer") }) />
+
+        <div class="card rounded shadow p-4 red-border">
+            <h1 class="page-header">Delete Customer </h1> 
+        
+            <!-- display details about the Customer -->
+
+            <dl class="row">
+                <div>
+                    
+                    <dl class="row">
+                        <dt class="col-4 pb-1">Date Customer Introduction</dt>
+                        <dd class="col-8 pb-1">@Model.DateEstablished </dd>
+
+                        <dt class="col-4 pb-1">Customer Type </dt>
+                        <dd class="col-8 pb-1">@Model.Type</dd>
+
+                        <dt class="col-4 pb-1">Customer Name</dt>
+                        <dd class="col-8 pb-1">@Model.Name</dd>
+
+                        <dt class="col-4 pb-1">Customer Phone </dt>
+                        <dd class="col-8 pb-1">@Model.Phone</dd>
+
+                        <dt class="col-4 pb-1">Address</dt>
+                        <dd class="col-8 pb-1">@Model.Street</dd>
+
+                        <dt class="col-4 pb-1">City</dt>
+                        <dd class="col-8 pb-1">@Model.City</dd>
+
+                        <dt class="col-4 pb-1">County</dt>
+                        <dd class="col-8 pb-1">@Model.County</dd>
+
+                        <dt class="col-4 pb-1">Post Code</dt>
+                        <dd class="col-8 pb-1">@Model.PostCode</dd>
+
+                        <dt class="col-4 pb-1">Customer Email </dt>
+                        <dd class="col-8 pb-1">@Model.Email </dd>
+
+                        <dt class="col-4 pb-1">Payment Terms</dt>
+                        <dd class="col-8 pb-1">@Model.PaymentTerms</dd>
+
+                        <dt class="col-4 pb-1">Customer Description</dt>
+                        <dd class="col-8 pb-1">@Model.Description</dd>
+                    </dl>
+                </div>
+
+                    <dl class="row">
+                        <div class="mt-4">
+                    <h3 class="mb-4">Delete Customer<span class="ms-3 text-danger fs-5">Are you sure?</span></h3>
+
+                    <form asp-action="DeleteConfirm">
+
+                        <input type="hidden" asp-for="Id" class="form-control" />
+
+                        <button type="submit" class="btn btn-danger" aria-label="delete">Delete</button>
+                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@Model.Id">Cancel</a>
+                    </form>
+
+                    <!-- navigation link back to all Customers -->
+                    <a asp-action="Index" class="btn btn-sm btn-outline-primary" aria-label="customer list">
+                        <i class="bi bi-list" title="customer list"></i>
+                        <span class="ms-1 d-none d-md-inline">Back To Customers</span>
+                    </a>
+                </div>
+
+        </div>
+
+        <div>
+
+        </div>
+    </div>
+
+</div>
+</div> *@

@@ -1,0 +1,245 @@
+@model APG_CRM.Web.Models.QuotationViewModel
+
+<div class="container-fluid">
+
+    <div class="custom-card-background">
+
+        <div class="custom-card-inner">
+
+            <!-- Breadcrumbs -->
+            <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Quotation", "Quotation"),
+                ($"/quotation/details/{Model.Id}", $" Quotation for Customer: {Model.Title}"), ("", "Update Quotation Details")
+                }) />
+
+            <h1 class="page-header">Update Quotation Details</h1>
+
+            <form asp-action="Edit">
+
+                <!-- Quotation Details -->
+                <div class="card mb-4">
+                    <div class="card-header">Quotation Details</div>
+                    <div class="card-body">
+                        <!-- Top row: QuoteDate + Title -->
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label asp-for="Date" class="form-label">Quotation edit Date:Time</label>
+                                <input asp-for="Date" class="form-control" />
+                                <span asp-validation-for="Date" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="Title" class="form-label">Title</label>
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="card mb-4">
+                    <div class="card-header">Contact Details</div>
+                    <div class="card-body">
+                        <!-- 2nd row: ContactName + ContactPhone + ContactEmail-->
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label asp-for="ContactName" class="form-label">Contact Name</label>
+                                <input asp-for="ContactName" class="form-control" />
+                                <span asp-validation-for="ContactName" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="ContactPhone" class="form-label">Phone</label>
+                                <input asp-for="ContactPhone" class="form-control" />
+                                <span asp-validation-for="ContactPhone" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="ContactEmail" class="form-label">Email</label>
+                                <input asp-for="ContactEmail" class="form-control" />
+                                <span asp-validation-for="ContactEmail" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project and Delivery Details -->
+                <div class="card mb-4">
+                    <div class="card-header">Project and Delivery Details</div>
+                    <div class="card-body">
+                        <!-- 3rd row: Status + WorkType + RequiresSurvey + DeliveryRequired -->
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label asp-for="Status" class="form-label">Status</label>
+                                  <select asp-for="Status" class="form-control">
+                                    <option value="Pending">Pending</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Declined">Declined</option>
+                                    <option value="WithCustomer">With Customer</option>
+                                    <option value="InProduction">In Production</option>
+                                    <option value="AwaitingDelivery">Awaiting Delivery</option>
+                                    <option value="ReadyForCollection">Ready for Collection</option>
+                                </select>
+                                <span asp-validation-for="Status" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="WorkType" class="form-label">Work Type</label>
+                                  <select asp-for="WorkType" class="form-control">
+                                        <option value="" disabled selected>Select work type</option>
+                                        <option value="Supply & install">Supply and Install</option>
+                                        <option value="Repair on Site">Repair on Site</option>
+                                        <option value="Mirrors">Mirrors</option>
+                                        <option value="Standard Glazing">Standard Glazing</option>
+                                        <option value="Toughen glass">Toughen Glass</option>
+                                    </select>
+                                <span asp-validation-for="WorkType" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="col">
+                                <label asp-for="RequiresSurvey" class="form-label"></label>
+                                <select asp-for="RequiresSurvey" class="form-control">
+                                    <option value="">-- Select --</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                                <span asp-validation-for="RequiresSurvey" class="text-danger"></span>
+                            </div>
+
+                            <div class="col">
+                                <label asp-for="DeliveryRequired" class="form-label"></label>
+                                <input asp-for="DeliveryRequired" type="checkbox" class="form-check-input"
+                                    id="deliveryRequiredCheckbox" />
+                                <span asp-validation-for="DeliveryRequired" class="text-danger"></span>
+                            </div>
+                            <div class="col" id="deliveryAddressField" style="display: none;">
+                                <label asp-for="DeliveryAddress" class="form-label">Delivery Address</label>
+                                <input asp-for="DeliveryAddress" class="form-control" />
+                                <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing and Urgency Details -->
+                <div class="card mb-4">
+                    <div class="card-header">Pricing and Urgency Details</div>
+                    <div class="card-body">
+                        <!-- 4th row: Urgency + UrgencyClassification + Price + DeliveryRequired -->
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label asp-for="Urgency" class="form-label">Urgency</label>
+                                <input asp-for="Urgency" class="form-control" />
+                                <span asp-validation-for="Urgency" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="UrgencyClassification" class="form-label">Urgency Classification</label>
+                                <input asp-for="UrgencyClassification" class="form-control" />
+                                <span asp-validation-for="UrgencyClassification" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="Price" class="form-label">Price (£)</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text">£</span>
+                                    </div>
+                                    <input asp-for="Price" class="form-control" />
+                                </div>
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Description -->
+                <div class="card mb-4">
+                    <div class="card-header">Work Description</div>
+                    <div class="card-body">
+                        <label asp-for="Description" class="form-label">Work Description</label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Follow-up Details -->
+                <div class="card mb-4">
+                    <div class="card-header">Follow-up Details</div>
+                    <div class="card-body">
+                        <!-- 5th row: QuoteSentDate + QuoteFollowDate + Accepted -->
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label asp-for="QuoteSentDate" class="form-label">Quote Sent Date</label>
+                                <input asp-for="QuoteSentDate" class="form-control" />
+                                <span asp-validation-for="QuoteSentDate" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="QuoteFollowDate" class="form-label">Quote Follow Date</label>
+                                <input asp-for="QuoteFollowDate" class="form-control" />
+                                <span asp-validation-for="QuoteFollowDate" class="text-danger"></span>
+                            </div>
+
+                            <!-- Accepted -->
+                              <div class="col">
+                                <label asp-for="Accepted" class="form-label">Quote Accepted</label>
+                                 <select asp-for="Accepted" class="form-control">
+                                    <option value="">-- Select --</option>
+                                    <option value="true">Accepted</option>
+                                    <option value="false">Not Accepted</option>
+                                </select>
+                                <span asp-validation-for="Accepted" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                            <!-- Response Section -->
+                <div class="card mb-4">
+                    <div class="card-header">Response</div>
+                    <div class="card-body">
+                        <label asp-for="Response" class="form-label">Quote Response</label>
+                        <textarea asp-for="Response" class="form-control"></textarea>
+                        <span asp-validation-for="Response" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <!-- Action Buttons -->
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary" aria-label="save">Save</button>
+                    <a class="btn btn-secondary" asp-action="Details" asp-route-id="@Model.Id"
+                        aria-label="cancel">Cancel</a>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var deliveryCheckbox = document.getElementById('deliveryRequiredCheckbox');
+                var deliveryAddressField = document.getElementById('deliveryAddressField');
+
+                // Function to toggle the display of the delivery address field
+                function toggleDeliveryAddress() {
+                    if (deliveryCheckbox.checked) {
+                        deliveryAddressField.style.display = 'block';
+                    } else {
+                        deliveryAddressField.style.display = 'none';
+                    }
+                }
+
+                // Event listener for checkbox changes
+                deliveryCheckbox.addEventListener('change', toggleDeliveryAddress);
+
+                // Initial check in case the checkbox is pre-checked when the page loads
+                toggleDeliveryAddress();
+            });
+        </script>
+    }
+
+
+</div>

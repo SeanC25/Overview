@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Customer Added";
+    string Type = ViewData["Type"] as string;
+}
+
+<div class="container">
+    <h1>Customer Created Successfully</h1>
+    <p>New Customer has been added to the system. Thank you for submitting the details.</p>
+
+    @if (Type == "Individual" || Type == "Company" || Type == "Contracted")
+    {
+        <p>Since this is a customer contact, you may wish to create an Quotation for them. Click the link below to add an Quotation:</p>
+        <a href="@Url.Action("CreateQuotation", "Quotations")" class="btn btn-primary">Create Quotation</a>
+    }
+
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Back to Home</a>
+</div>

@@ -1,0 +1,130 @@
+@model Survey
+
+<div class="custom-card-background">
+    <div class="d-flex justify-content-center">
+        <div class="custom-card-inner">
+            <!-- breadcrumb -->
+            <partial name="_BreadCrumbs" model=@(new [] { ("/","Home"), ("/Surveys", "Surveys"), ("", "Create Survey")
+                }) />
+
+            <div class="card rounded shadow p-4 red-border">
+                <h1 class="page-header">Create New Survey</h1>
+
+                <form asp-controller="Survey" asp-action="Create" method="post" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <label for="RequestDate">Request Date</label>
+                        <input type="date" class="form-control" asp-for="RequestDate"
+                            placeholder="Enter the date when the survey was requested" required />
+                        <span asp-validation-for="RequestDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ScheduleDate">Schedule Date</label>
+                        <input type="date" class="form-control" asp-for="ScheduleDate"
+                            placeholder="Enter the date when the survey is scheduled" required />
+                        <span asp-validation-for="ScheduleDate" class="text-danger"></span>
+                    </div>
+
+                    <!-- Address Group -->
+                    <fieldset>
+                        <legend>Address Details</legend>
+                        <div class="form-group">
+                            <label for="Street">Street</label>
+                            <input type="text" class="form-control" asp-for="Street"
+                                placeholder="Enter the street address for the survey" required />
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="City">City</label>
+                            <input type="text" class="form-control" asp-for="City"
+                                placeholder="Enter the city where the survey will take place" required />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="County">County</label>
+                            <input type="text" class="form-control" asp-for="County"
+                                placeholder="Enter the county for the survey location" required />
+                            <span asp-validation-for="County" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="PostCode">PostCode</label>
+                            <input type="text" class="form-control" asp-for="PostCode"
+                                placeholder="Enter the postcode for the survey location" required />
+                            <span asp-validation-for="PostCode" class="text-danger"></span>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-group">
+                        <label for="SurveyPhone">Survey Phone</label>
+                        <input type="tel" class="form-control" asp-for="SurveyPhone"
+                            placeholder="Enter a contact phone number for the survey" required />
+                        <span asp-validation-for="SurveyPhone" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PreSurveyNotes">Pre Survey Notes</label>
+                        <textarea class="form-control" asp-for="PreSurveyNotes" rows="4"
+                            placeholder="Enter any notes or details before conducting the survey" required></textarea>
+                        <span asp-validation-for="PreSurveyNotes" class="text-danger"></span>
+                    </div>
+
+                    <fieldset>
+                        <legend>Prerequisite Items</legend>
+
+                        <!-- Requires Ladders Checkbox -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="requiresLadders"
+                                asp-for="RequiresLadders">
+                            <label class="form-check-label" for="requiresLadders">Requires Ladders</label>
+                        </div>
+
+                        <!-- Requires Scissor Stairs Checkbox -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="requiresScissorStairs"
+                                asp-for="RequiresScissorStairs">
+                            <label class="form-check-label" for="requiresScissorStairs">Requires Scissor Stairs</label>
+                        </div>
+
+                        <!-- Requires Street Bullards Checkbox -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="requiresStreetBullards"
+                                asp-for="RequiresStreetBullards">
+                            <label class="form-check-label" for="requiresStreetBullards">Requires Street
+                                Bullards</label>
+                        </div>
+
+                        <!-- Number of Staff Required Input -->
+                        <div class="form-group">
+                            <label for="numStaffRequired">Number of Staff Required</label>
+                            <input type="number" class="form-control" id="numStaffRequired" asp-for="NumStaffRequired"
+                                min="1">
+                        </div>
+                    </fieldset>
+
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">Create Survey</button>
+                        <a asp-controller="Survey" asp-action="Index" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @* <!-- Adding jQuery Validation Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+        <!-- Tooltips initialization script -->
+        <script>
+        $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        });
+        </script> *@
+
+    </div>
+</div>

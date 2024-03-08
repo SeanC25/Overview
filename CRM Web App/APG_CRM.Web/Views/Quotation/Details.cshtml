@@ -1,0 +1,160 @@
+@model Quotation
+
+<div class="custom-card-background">  
+
+ <div class="custom-card-inner">
+
+        <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Quotation", "Quotations"), ($"", $"Quotation Name: {Model.Title}"), })>
+
+<h1 class="page-header">Quotation Detials</h1>
+
+    <div class="row">
+        <div class="col-8 d-flex flex-column justify-content-between">
+            <div>
+                
+                <dl class="row">
+                    <dt class="col-4 pb-1">Date of Quotation :</dt>
+                    <dd class="col-8 pb-1">@Model.Date.ToString("dd/MM/yyyy")</dd>
+
+                    <dt class="col-4 pb-1">Title</dt>
+                    <dd class="col-8 pb-1">@Model.Title</dd>
+
+                    <dt class="col-4 pb-1">Contact Name:</dt>
+                    <dd class="col-8 pb-1">@Model.ContactName</dd>
+
+                    <dt class="col-4 pb-1">Contact Phone:</dt>
+                    <dd class="col-8 pb-1">@Model.ContactPhone</dd>
+
+                    <dt class="col-4 pb-1">Contact Email:</dt>
+                    <dd class="col-8 pb-1">@Model.ContactEmail</dd>
+
+                    <dt class="col-4 pb-1">Description:</dt>
+                    <dd class="col-8 pb-1">@Model.Description</dd>
+
+                    <dt class="col-4 pb-1">Survey:</dt>
+                    <dd class="col-8 pb-1">@Model.RequiresSurvey</dd>
+
+                    <dt class="col-4 pb-1">Work Type :</dt>
+                    <dd class="col-8 pb-1">@Model.WorkType</dd>
+
+                    <dt class="col-4 pb-1">Delivery Required</dt>
+                    <dd class="col-8 pb-1">@Model.DeliveryRequired</dd>
+
+                    <dt class="col-4 pb-1">Delivery Address</dt>
+                    <dd class="col-8 pb-1">@Model.DeliveryAddress</dd>
+
+
+                    <dt class="col-4 pb-1">Price:</dt>
+                    <dd class="col-8 pb-1">@Model.Price</dd>
+
+                    <dt class="col-4 pb-1">Quote Sent Date:</dt>
+                    <dd class="col-8 pb-1">
+                        @if (Model.QuoteSentDate.HasValue)
+                        {
+                            @Model.QuoteSentDate.Value.ToString("dd/MM/yyyy")
+                        }
+                        else
+                        {
+                            @:N/A
+                        }
+                    </dd>
+
+                    <dt class="col-4 pb-1">Follow Up Date:</dt>
+                    <dd class="col-8 pb-1">
+                        @if (Model.QuoteFollowDate.HasValue)
+                        {
+                            <pre>@Model.QuoteFollowDate.Value.ToString("dd/MM/yyyy")</pre>
+                        }
+                        else
+                        {
+                            @:<pre>N/A</pre>
+                        }
+                    </dd>
+
+                    <dt class="col-4 pb-1">Status:</dt>
+                    <dd class="col-8 pb-1"><pre>@Model.Status</pre></dd>
+
+                    <dt class="col-4 pb-1">Response:</dt>
+                    <dd class="col-8 pb-1">@Model.Response</dd>
+
+                    <dt class="col-4 pb-1">Accepted:</dt>
+                    <dd class="col-8 pb-1">@Model.Accepted</dd>
+
+                    <dt class="col-4 pb-1">Urgency:</dt>
+                    <dd class="col-8 pb-1">@Model.Urgency</dd>
+
+                    <dt class="col-4 pb-1">Urgency Classification:</dt>
+                    <dd class="col-8 pb-1">@Model.UrgencyClassification</dd>
+
+                  <dt class="col-4 pb-1">Quote Sent On:</dt>
+<dd class="col-8 pb-1">
+    @if (Model.QuoteSentDate.HasValue)
+    {
+        @Model.QuoteSentDate.Value.ToString("dd/MM/yyyy")
+    }
+    else
+    {
+        @:N/A
+    }
+</dd>
+                  
+                </dl>
+            </div>
+        
+
+            @* Page Navigation *@
+            <div>
+                <!-- back to index- all list of Quotation  -->
+                <a asp-action="Index" class="btn btn-sm btn-outline-primary" aria-label="quotation list">
+                    <i class="bi bi-list" title="quotation list"></i>
+                    <span class="ms-1 d-none d-md-inline">All Quotations</span>
+                </a>
+
+                <!-- edit quotation -->
+                <a asp-condition=@User.HasOneOfRoles("admin,manager") asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-secondary"
+                    aria-label="edit quotation">
+                    <i class="bi bi-pen-fill" title="edit quotation"></i>
+                    <span class="ms-1 d-none d-md-inline">Edit</span>
+                </a>
+
+                <!--  Delete Quotation  -->
+                <a asp-condition=@User.HasOneOfRoles("admin,manager") asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-danger"
+                    aria-label="Delete Quotation ">
+                    <i class="bi bi-trash-fill" title="Delete Quotation"></i>
+                    <span class="ms-1 d-none d-md-inline">Delete Quotation </span>
+                </a>
+
+                  <a asp-action="Create" asp-controller="Survey" asp-route-customerId="@Model.Id" class="btn btn-primary">
+                                <i class="bi bi-bag-plus-fill" title="create quotation"></i>
+                            <span class="ms-1 d-none d-md-inline">Create Survey for this Quotation</span>
+                            </a>
+
+            </div>
+        </div> 
+    </div> 
+</div> 
+
+
+@* <div class="col-md-4">
+    <!-- Survey Section -->
+    <partial name="_SurveyDetails" model="Model.Surveys"/> 
+</div>
+ *@
+
+@* 
+<div class="col-md-4">
+    <!-- Survey Section -->
+    <partial name="_SurveyDetails" model="@Model.Surveys" />
+</div> *@
+
+@* <div>
+    @await Html.PartialAsync("_SurveyDetails", PagedSurveyViewModel)
+</div> *@
+
+ @* <div>
+            @await Html.PartialAsync("_SurveyDetails", Model.Surveys)
+</div>
+ *@
+
+
+</div>

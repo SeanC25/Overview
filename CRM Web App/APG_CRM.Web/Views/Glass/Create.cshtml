@@ -1,0 +1,85 @@
+@model APG_CRM.Web.Models.Glass
+
+@{
+    ViewData["Title"] = "Create new Glass";
+}
+
+<div class="custom-card-background">
+
+    <div class="custom-card-inner">
+
+         <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Quotation", "Quotations"),
+             ("", "Create New Quotation") }) />
+
+    <h1 class="page-header">@ViewData["Title"] </h1>
+
+
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label asp-for="Type">Glass Type</label>
+                <select asp-for="Type" asp-items="Html.GetEnumSelectList<APG_CRM.Web.Models.GlassType>()"
+                    class="form-control"></select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name">Glass Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Thickness">Thickness (mm)</label>
+                <input asp-for="Thickness" class="form-control" />
+                <span asp-validation-for="Thickness" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SheetSizeL">Sheet Size (Length)</label>
+                <input asp-for="SheetSizeL" class="form-control" />
+                <span asp-validation-for="SheetSizeL" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SheetSizeH">Sheet Size (Height)</label>
+                <input asp-for="SheetSizeH" class="form-control" />
+                <span asp-validation-for="SheetSizeH" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PricePerSheet">Price Per Sheet (£)</label>
+                <input asp-for="PricePerSheet" class="form-control" />
+                <span asp-validation-for="PricePerSheet" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BoxSheetQuantity">Box Sheet Quantity</label>
+                <input asp-for="BoxSheetQuantity" class="form-control" />
+                <span asp-validation-for="BoxSheetQuantity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SupplierId">Supplier ID</label>
+                <!-- You might want to use a dropdown list populated with Suppliers for this instead of a simple input -->
+                <input asp-for="SupplierId" class="form-control" />
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+            <!-- Partial used for images Image --->
+            <partial name="_GlassImage" />
+        </form>
+
+    </div>
+
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

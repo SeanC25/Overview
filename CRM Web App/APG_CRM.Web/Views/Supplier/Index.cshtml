@@ -1,0 +1,166 @@
+@model PaginatedSuppliersViewModel
+
+<div class="custom-card-background">
+
+    <div class="d-flex justify-content-center">
+         <div class="custom-card-inner">
+
+        <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Supplier/Index", "Suppliers") }) />
+        <h1 class="page-header">Suppliers</h1>
+
+        @if (User.IsInRole("admin") || User.IsInRole("manager"))
+        {
+            <a class="btn btn-sm btn-primary" asp-controller="Supplier" asp-action="Create" title="Add Supplier"
+                aria-label="Add Supplier">
+                <i class="bi bi-plus"></i> Add Supplier
+            </a>
+        }
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortBy="Id" asp-route-direction="asc">@Html.DisplayNameFor(model
+                            =>
+                            model.Suppliers.Data.FirstOrDefault().Id)</a>
+                    </th>
+                    <th><a asp-action="Index" asp-route-sortBy="Name">@Html.DisplayNameFor(model =>
+                            model.Suppliers.Data.FirstOrDefault().Name)</a></th>
+                    <th><a asp-action="Index" asp-route-sortBy="MainContactName">@Html.DisplayNameFor(model =>
+                            model.Suppliers.Data.FirstOrDefault().MainContactName)</a></th>
+                    <th><a asp-action="Index" asp-route-sortBy="Address">@Html.DisplayNameFor(model =>
+                            model.Suppliers.Data.FirstOrDefault().Address)</a></th>
+                    <th><a asp-action="Index" asp-route-sortBy="City">@Html.DisplayNameFor(model =>
+                            model.Suppliers.Data.FirstOrDefault().City)</a></th>
+                    <th><a asp-action="Index" asp-route-sortBy="PostCode">@Html.DisplayNameFor(model =>
+                            model.Suppliers.Data.FirstOrDefault().PostCode)</a></th>
+                    <th><a asp-action="Index" asp-route-sortBy="Website">@Html.DisplayNameFor(model =>
+                            model.Suppliers.Data.FirstOrDefault().Website)</a></th>
+                    <th><a asp-action="Index" asp-route-sortBy="Phone">@Html.DisplayNameFor(model =>
+                            model.Suppliers.Data.FirstOrDefault().Phone)</a></th>
+                    <th><a asp-action="Index" asp-route-sortBy="Email">@Html.DisplayNameFor(model =>
+                            model.Suppliers.Data.FirstOrDefault().Email)</a></th>
+                    <th><a asp-action="Index" asp-route-sortBy="Notes">@Html.DisplayNameFor(model =>
+                            model.Suppliers.Data.FirstOrDefault().Notes)</a></th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var supplier in Model.Suppliers.Data)
+                {
+                    <tr>
+                        <td>@supplier.Id</td>
+                        <td>@supplier.Name</td>
+                        <td>@supplier.MainContactName</td>
+                        <td>@supplier.Address</td>
+                        <td>@supplier.City</td>
+                        <td>@supplier.PostCode</td>
+                        <td>@supplier.Website</td>
+                        <td>@supplier.Phone</td>
+                        <td>@supplier.Email</td>
+                        <td>@supplier.Notes</td>
+                        <td>
+                            <!-- Action buttons -->
+                            @* Replace below with actual role checking logic if necessary *@
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a asp-action="Details" asp-controller="Supplier" asp-route-id="@supplier.Id"
+                                    class="btn btn-sm btn-info" title="Details">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                                <a asp-action="Edit" asp-controller="Supplier" asp-route-id="@supplier.Id"
+                                    class="btn btn-sm btn-outline-dark" title="Edit Supplier">
+                                    <i class="bi bi-pen-fill"></i>
+                                </a>
+                                <a asp-action="Delete" asp-controller="Supplier" asp-route-id="@supplier.Id"
+                                    class="btn btn-sm btn-outline-danger" title="Delete Supplier">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                                <a href="mailto:@supplier.Email" class="btn btn-sm btn-primary" title="Send Email">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+
+        <nav aria-label="Page navigation">
+            <p>Showing page @Model.Suppliers.CurrentPage of @Model.Suppliers.TotalPages</p>
+            <ul class="pagination">
+                @if (Model.Suppliers.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index"
+                            asp-route-pageNumber="@(Model.Suppliers.CurrentPage - 1)">Previous</a>
+                    </li>
+                }
+
+                @for (var i = 1; i <= Model.Suppliers.TotalPages; i++)
+                {
+                    @if (ShouldDisplayPageLink(i))
+                    {
+                        <li class="page-item @(IsActivePage(i))">
+                            <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+                    else if (ShouldDisplayEllipsis(i))
+                    {
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                    }
+                }
+
+                @if (Model.Suppliers.CurrentPage < Model.Suppliers.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index"
+                            asp-route-pageNumber="@(Model.Suppliers.CurrentPage + 1)">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+
+        <!-- Search Form -->
+        <form asp-action="Index" method="get" class="mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" name="searchTerm" placeholder="Search for supplier..."
+                    value="@Model.SearchTerm">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Add New Supplier</a>
+        </p>
+
+
+    </div>
+
+
+    </div>
+
+   
+</div>
+
+@functions {
+    bool ShouldDisplayPageLink(int pageNumber)
+    {
+        return pageNumber == Model.Suppliers.CurrentPage || Math.Abs(Model.Suppliers.CurrentPage - pageNumber) < 3 || pageNumber
+        == 1 || pageNumber == Model.Suppliers.TotalPages;
+    }
+
+    string IsActivePage(int pageNumber)
+    {
+        return pageNumber == Model.Suppliers.CurrentPage ? "active" : "";
+    }
+
+    bool ShouldDisplayEllipsis(int pageNumber)
+    {
+        return pageNumber == 2 || pageNumber == Model.Suppliers.TotalPages - 1;
+    }
+}

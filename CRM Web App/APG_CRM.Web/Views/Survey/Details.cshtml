@@ -1,0 +1,185 @@
+@model APG_CRM.Data.Entities.Survey
+
+<div class="row"> <!-- Start of the main row -->
+    <!-- Surveyor Details - Left Side -->
+    <div class="col-lg-12">
+        <!-- Survey Details Card -->
+        <div class="card rounded shadow p-4 mt-8">
+            <h2>Surveyor Details</h2>
+            <table class="table p-2 mt-8">
+                <tbody>
+                    <!-- Request & Schedule Date -->
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.RequestDate)</th>
+                        <th>@Html.DisplayNameFor(model => model.ScheduleDate)</th>
+                    </tr>
+                    <tr>
+                        <td>@Model.RequestDate.ToString("dd/MM/yyyy")</td>
+                        <td>@Model.ScheduleDate.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                    <!-- Address -->
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Street)</th>
+                        <td>@Model.Street, @Model.City, @Model.County, @Model.PostCode</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Map Location Card -->
+            <div class="card rounded shadow p-4 mt-4">
+                <h2>Map Location</h2>
+                <div id="surveyMap" style="width: 100%; height: 400px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12"></div>
+    <!-- Pre Surveyor Requirements Card -->
+    <div class="card rounded shadow p-4 mt-4">
+        <h2>Pre Surveyor Requirements</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Requirement</th>
+                    <th>Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Pre Surveyor Requirements Data -->
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PreSurveyNotes)</td>
+                    <td>@Model.PreSurveyNotes</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.RequiresLadders)</td>
+                    <td>@(Model.RequiresLadders ? "Yes" : "No")</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.RequiresScissorStairs)</td>
+                    <td>@(Model.RequiresScissorStairs ? "Yes" : "No")</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.RequiresStreetBullards)</td>
+                    <td>@(Model.RequiresStreetBullards ? "Yes" : "No")</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Surveyor Notes</h2>
+        <table class="table">
+            <tbody>
+                <!-- Various Notes Data -->
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Status)</th>
+                    <td>@Model.Status</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Reviewed)</th>
+                    <td>@Model.Reviewed</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.CompletedByWho)</th>
+                    <td>@Model.CompletedByWho</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <td>@Model.Description</td>
+                </tr>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.RiskAssessment)</th>
+                    <td>@Model.RiskAssessment</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- Action and Navigation -->
+<div class="col-lg-12 p-2 ">
+    <div class="card rounded shadow p-4 mt-4">
+        <div class="d-flex justify-content-between">
+
+            <!-- Back, Previous, Next -->
+            <div>
+                <!-- Back to List -->
+                <a asp-action="Index" class="btn btn-primary" title="Back to List">
+                    <i class="bi bi-list"></i> All Surveys
+                </a>
+
+                <!-- Previous Survey -->
+                @if (Model.PreviousSurveyId.HasValue)
+                {
+                    <a asp-action="Details" asp-route-id="@Model.PreviousSurveyId.Value" class="btn btn-light"
+                        title="Previous Survey">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                }
+
+                <!-- Next Survey -->
+                @if (Model.NextSurveyId.HasValue)
+                {
+                    <a asp-action="Details" asp-route-id="@Model.NextSurveyId.Value" class="btn btn-light"
+                        title="Next Survey">
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                }
+            </div>
+
+            <!-- Admin Actions -->
+            <div>
+                @if (User.IsInRole("admin") || User.IsInRole("support") || User.IsInRole("manager"))
+                {
+                    <a asp-condition="@User.HasOneOfRoles("admin,manager,survey")" asp-action="Edit" asp-controller="Survey"
+                        asp-route-id="@Model.Id" class="btn btn-sm btn-outline-dark btn-edit" title="Edit Survey"
+                        aria-label="Edit">
+                        <i class="bi bi-pen-fill"></i>
+                    </a>
+
+                    <a asp-condition="@User.HasOneOfRoles("admin,manager,survey")" asp-action="Create"
+                        asp-controller="Survey" class="btn btn-sm btn-outline-primary" title="Create Survey"
+                        aria-label="Create">
+                        <i class="bi bi-file-earmark-plus"></i>
+                    </a>
+
+                    <a asp-action="Delete" asp-controller="Survey" asp-route-id="@Model.Id" class="btn btn-outline-danger"
+                        title="Delete" onclick="return confirm('Are you sure you want to delete this item?');">
+                        <i class="bi bi-trash-fill"></i>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- scripts -->
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        initializeMap();
+    });
+
+    function initializeMap() {
+        var map = L.map('surveyMap'); // Don't set an initial view here
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        geocodePostcode(map, '@Model.PostCode'); // Use geocoding to set the initial map view and place the marker
+    }
+
+    function geocodePostcode(map, postcode) {
+        var geocoder = L.Control.Geocoder.nominatim();
+
+        geocoder.geocode(postcode, function (results) {
+            if (results && results.length > 0) {
+                var latlng = results[0].center;
+                L.marker(latlng).addTo(map);
+                map.setView(latlng, 13); // Setting the map view to the geocoded location with zoom level 13
+            } else {
+                console.error('Geocoding failed for postcode:', postcode); // i have noticed that the map only shows for the 4 seeders this could be for a few reasons due to it being free service and i am calling it too often.
+                // If geocoding fails, set a default view (in this case, Derry City's coordinates)
+                map.setView([54.9966, -7.3086], 8);
+            }
+        });
+    }
+</script>

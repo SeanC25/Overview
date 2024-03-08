@@ -1,0 +1,56 @@
+@model IEnumerable<APG_CRM.Data.Entities.Quotation>
+
+<h3 class="text-center">Customer Quotations: Sorted Follow up Date</h3>
+
+<!-- Check if there are any pending quotations -->
+@if (Model.Any(quotation => quotation.Status == APG_CRM.Data.Entities.Quotestatus.Pending))
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Price</th>
+                <th>Prospect</th>
+                <th>Quote Sent Date</th>
+                <th>Quote Follow Up</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quotation in Model.Where(quotation => quotation.Status ==
+           APG_CRM.Data.Entities.Quotestatus.Pending))
+            {
+                <tr>
+                    <td>@quotation.Price.ToString("C")</td>
+                    <td>@quotation.UrgencyClassification</td>
+                    <td>@(quotation.QuoteSentDate?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+                    <td>@(quotation.QuoteFollowDate?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+                    
+                    <!-- Action buttons -->
+                    <td class="align-middle">
+                        <div class="d-inline-flex">
+                            <!-- Details Button -->
+                            <a asp-action="Details" asp-controller="Quotation" asp-route-id="@quotation.Id"
+                                class="btn btn-sm btn-outline-light" title="Quotation Details">
+                                <ion-icon name="eye-outline"></ion-icon>
+                            </a>
+
+                            <!-- Edit and Delete Buttons (conditionally rendered based on user role) -->
+                            @if (User.HasOneOfRoles("admin,manager"))
+                            {
+                                <a asp-action="Edit" asp-controller="Quotation" asp-route-id="@quotation.Id"
+                                    class="btn btn-sm btn-outline-dark" title="Edit Quotation">
+                                    <i class="bi bi-pen-fill"></i>
+                                </a>
+                            }
+                        </div>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No pending quotations available.</p>
+}

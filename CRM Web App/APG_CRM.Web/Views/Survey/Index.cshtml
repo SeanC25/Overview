@@ -1,0 +1,216 @@
+@model Paged<Survey>
+
+<div class="custom-card-background">
+
+    <div class="d-flex justify-content-center">
+
+        <div class="custom-card-inner">
+            <!-- Breadcrumb -->
+            <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("", "Surveys") }) />
+            <h1 class="page-header">Surveys</h1>
+
+            @{
+                Func<string[], bool> userHasRole = roles => roles.Any(role => User.HasOneOfRoles(role));
+            }
+            <!-- Responsive Table Container -->
+            <div class="table-responsive">
+                <!-- Table of Surveys -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Request Date</th>
+                            <th>Schedule Date</th>
+                            <th style="min-width:350px;">PreSurveyNotes</th>
+                            <th style="min-width:280px;">Address</th>
+                            <th>Survey Phone</th>
+                            <th>Status</th>
+                            <th>Reviewed</th>
+                            <th style="min-width:150px;">Completed By</th>
+                            <th style="min-width:300px;">Description</th>
+                            <th>Risk Assessment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var survey in Model.Data)
+                        {
+                            <tr>
+                                <td>@survey.RequestDate.ToString("dd/MM/yyyy")</td>
+                                <td>@survey.ScheduleDate.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <div class="card-body">
+                                        <!-- Show button to view Pre Survey Notes details -->
+                                        <button class="btn btn-link" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#preSurveyDetails-@survey.Id">
+                                            Show Pre Survey Notes
+                                        </button>
+                                        <div id="preSurveyDetails-@survey.Id" class="collapse mt-2">
+                                            <!-- Display PreSurveyNotes -->
+                                            <p>@survey.PreSurveyNotes</p>
+
+                                            <!-- Display Requirements -->
+                                            <p><strong>Requirements:</strong></p>
+                                            <ul>
+                                                <li>
+                                                    Staff Required: @survey.NumStaffRequired
+                                                </li>
+                                                <li>
+                                                    Ladders: @survey.RequiresLadders
+                                                </li>
+                                                <li>
+                                                    Scissor Lift: @survey.RequiresScissorStairs
+                                                </li>
+                                                <li>
+                                                    Street Bullards: @survey.RequiresStreetBullards
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="wider-column" title="Survey Address">
+                                    @survey.Street @survey.City, @survey.County, @survey.PostCode
+                                </td>
+                                <td>@survey.SurveyPhone</td>
+                                <td>
+                                    @{
+                                        var badgeClass = survey.Status switch
+                                        {
+                                            APG_CRM.Data.Entities.SurveyStatus.Completed => "badge bg-success",
+                                            APG_CRM.Data.Entities.SurveyStatus.Canceled => "badge bg-danger",
+                                            APG_CRM.Data.Entities.SurveyStatus.Pending => "badge bg-warning",
+                                            _ => "badge bg-secondary"
+                                        };
+                                    }
+                                    <span class="@badgeClass">@survey.Status</span>
+                                </td>
+                                <td>
+                                    @{
+                                        string reviewedTitle;
+                                        var reviewedBadgeClass = survey.Reviewed switch
+                                        {
+                                            true => "badge-success-tick",
+                                            false => "badge-danger-cross",
+                                            _ => ""
+                                        };
+
+                                        reviewedTitle = survey.Reviewed switch
+                                        {
+                                            true => "Reviewed",
+                                            false => "Not reviewed",
+                                            _ => "Review status unknown"
+                                        };
+                                    }
+                                    <span class="@reviewedBadgeClass" aria-label="@reviewedTitle"
+                                        title="@reviewedTitle"></span>
+                                </td>
+                                <td>@survey.CompletedByWho</td>
+                                <td title="@survey.Description">
+                                    <div class="truncate" id="desc-@survey.Id">
+                                        @survey.Description
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(survey.Description) && survey.Description.Length > 20)
+                                    {
+                                        <a href="javascript:void(0);" data-toggle-text="View Less" class="view-more"
+                                            data-target="#desc-@survey.Id">View More</a>
+                                    }
+                                </td>
+                                <td>@survey.RiskAssessment</td>
+
+                                <!-- Action buttons -->
+                                <td>
+
+                                    @if (userHasRole(new[] { "admin", "manager", "survey" }))
+                                    {
+                                        <a asp-action="Details" asp-controller="Survey" asp-route-id="@survey.Id"
+                                            class="btn btn-sm btn-outline-primary" title="Details">
+                                            <i class="bi bi-info-circle"></i>
+                                        </a>
+                                    }
+                                    <a asp-action="Edit" asp-controller="Survey" asp-route-id="@survey.Id"
+                                        class="btn btn-sm btn-outline-dark" title="Edit Survey" aria-label="Edit">
+                                        <i class="bi bi-pen-fill"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-controller="Survey" asp-route-id="@survey.Id"
+                                        class="btn btn-sm btn-outline-danger" title="Delete Survey" aria-label="Delete">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <vc:paginator action="Index" rows=@Model.TotalRows pages=@Model.TotalPages current=@Model.CurrentPage
+                size=@Model.PageSize />
+
+            <div class="card border rounded align centre shadow p-4">
+
+                <div class="d-flex align-items-center justify-content-between">
+                    <h3>Surveys</h3>
+                    @if (userHasRole(new[] { "admin", "support", "manager" }))
+                    {
+                        <a class="btn btn-sm btn-primary" asp-controller="Survey" asp-action="Create" title="Add Survey"
+                            aria-label="Add a new survey">
+                            <i class="bi bi-plus"></i> Add Survey
+                        </a>
+                    }
+                </div>
+
+                <!-- Search Form -->
+                <div class="custom-card">
+                    <form asp-action="Index" method="get" class="mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="searchTerm" placeholder="Search for Survey..."
+                                value="@Context.Request.Query["searchTerm"]">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewMoreLinks = document.querySelectorAll('.view-more');
+
+            viewMoreLinks.forEach(function (link) {
+                link.addEventListener('click', function () {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        // Toggle the 'truncate' class to expand/collapse text
+                        targetElement.classList.toggle('truncate');
+
+                        // Toggle the link text between 'View More' and 'View Less'
+                        if (this.textContent === 'View More') {
+                            this.textContent = 'View Less';
+                        } else {
+                            this.textContent = 'View More';
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+}

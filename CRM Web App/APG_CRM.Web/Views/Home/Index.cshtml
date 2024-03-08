@@ -1,0 +1,194 @@
+﻿<div class="custom-card-background">
+
+    <div class="d-flex justify-content-center">
+        <div class="custom-card-inner">
+
+            <h1 class="landing-header">Welcome to APG CRM</h1>
+
+            <!-- Display APG Logo -->
+            <div class="landing-imageLocation">
+                <img src="\Images\SVG Images\APGCRM1.svg" alt="APG logo" class="img-fluid">
+            </div>
+
+            <div class="landing-maintext">
+                <p>APG Business is about providing the best customer experience by promoting our sales team to have
+                    access
+                    to all customer information and deal with all enquiries and customer support calls. </p>
+            </div>
+
+            <!-- APG CRM Tools and Functions -->
+            <div class="landing-subtext">
+                <h2><u>APG CRM Tools and Functions</u></h2>
+                <p>Digital system to help you to organize interactions with customers in a much more efficient and
+                    organized
+                    manner.</p>
+            </div>
+
+            <div>
+                <ul class="list">
+                    <li>Centralized Customer Information</li>
+                    <li>Organize Customer leads</li>
+                    <li>Schedule and Organize Customer Surveys</li>
+                </ul>
+            </div>
+
+            <!-- Authentication Section -->
+            <div class="landing-Authentication-card">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <!-- Display for unauthenticated users -->
+                    <div class="custom-card text-center">
+                        <p>Authorized User Login </p>
+                        <a href="@Url.Action("Login", "User")" class="btn btn2" title="Click to Login"
+                            aria-label="Click to Login">Login</a>
+                    </div>
+                }
+                else
+                {
+                    <!-- User is authenticated -->
+                    @if (User.IsInRole("manager"))
+                    {
+                        <div class="landing-Authentication-card">
+                            <!-- Content for authenticated Manager -->
+                            <div>
+
+                                <p style="text-align: center;">Welcome, @User.Identity.Name!</p>
+
+                                <p asp-roles="manager">You have <span class="text-success">full Manager privileges</span> on APG
+                                    CRM
+                                    to
+                                    access the Customers, Quotations and Survey facilities as well as manage glass lists and
+                                    supplier
+                                    contatcs and finally manage User access.</p>
+                            </div>
+
+                            <div class="landing-Authentication-card">
+                                <div class="image-container">
+                                    <div class="image-boxes">
+
+                                        <div class="box">
+                                            <a href="@Url.Action("Index", "Customer")">
+                                                <img src="Images/SVG Images/CRMDB.svg" alt="Description of Image 1"
+                                                    title="Customer Relationship Management">
+                                            </a>
+                                        </div>
+
+                                        <div class="box">
+                                            <a href="@Url.Action("Index", "Quotation")">
+                                                <img src="Images\SVG Images\Leads.svg" alt="Description of Image 2"
+                                                    title="Quotation Management">
+                                            </a>
+                                        </div>
+                                        <div class="box">
+                                            <a href="@Url.Action("Index", "Survey")">
+                                                <img src="Images/SVG Images/Survey.svg" alt="Description of Image 3"
+                                                    title="Survey Management">
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    }
+                    else if (User.IsInRole("admin"))
+                    {
+
+                        <div class="landing-Authentication-card">
+                            <!-- Content for authenticated Admin -->
+                            <div>
+
+                                <p style="text-align: center;">Welcome, @User.Identity.Name!</p>
+
+                                <p asp-roles="admin">You have <span class="text-success">Sales Team Member access</span> to view
+                                    and
+                                    manage the Customers, Quotations and Survey facilities as well as manage glass lists and
+                                    supplier
+                                    contatcs</p>
+                            </div>
+
+                            <div class="image-container">
+                                <div class="image-boxes">
+
+                                    <div class="box">
+                                        <a href="@Url.Action("Index", "Customer")">
+                                            <img src="Images/SVG Images/CRMDB.svg" alt="Description of Image 1"
+                                                title="Customer Relationship Management">
+                                        </a>
+                                    </div>
+
+                                    <div class="box">
+                                        <a href="@Url.Action("Index", "Quotation")">
+                                            <img src="Images\SVG Images\Leads.svg" alt="Description of Image 2"
+                                                title="Quotation Management">
+                                        </a>
+                                    </div>
+                                    <div class="box">
+                                        <a href="@Url.Action("Index", "Survey")">
+                                            <img src="Images/SVG Images/Survey.svg" alt="Description of Image 3"
+                                                title="Survey Management">
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (User.IsInRole("survey"))
+                    {
+                        <!-- Content for authenticated Survey user -->
+
+                        <div class="landing-Authentication-card">
+
+
+                            <!-- Add Survey-specific content here -->
+                            <div class="survey-box">
+                                <p style="text-align: center;">Welcome, @User.Identity.Name!</p>
+
+                                <p class="text-success"> As a Survey Team Member: @User.Identity.Name, you can access the survey
+                                    facilities.
+                                </p>
+                                <div class="image-container">
+                                    <div class="image-boxes">
+
+                                        <div class="box">
+                                            <a href="@Url.Action("Index", "Survey")">
+                                                <img src="Images/SVG Images/Survey.svg" alt="Description of Image 3"
+                                                    title="Survey Management">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <!-- Content for authenticated users without specific roles -->
+                        <div>
+                            <p>Welcome, authenticated user!</p>
+                            <h4 class="card-title">Welcome to the APG CRM application</h4>
+                            <p class="card-text">Welcome <span class="text-primary">@User.Identity.Name</span>. You are
+                                registered
+                                and
+                                <span class="text-success">authorized</span> to the APG CRM web application to access the
+                                facilities
+                                to
+                                manage customer interactions.
+                            </p>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <!-- External JavaScript File: -->
+    <script src="wwwroot\js\site.js"></script>
+
+</div>

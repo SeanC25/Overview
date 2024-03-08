@@ -1,0 +1,726 @@
+/* Base font size adjustments */
+html {
+  font-size: 14px;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      font-size: 16px;
+    }
+  }
+
+  html {
+    position: relative;
+    min-height: 100%;
+    width: 100%
+  }
+
+    /* ================================================================
+      Page STYLES - the body
+     ================================================================ */
+
+     /* Setting up the body as a flex container */
+      body {   /* Flex Container */
+      position: relative;
+      width: 100%;  
+      margin: 5px;
+      padding: 5px;
+      margin-bottom: 1rem;
+      background-color:#e5e5e5;  /*sets a background color i think is easier on the eye */
+      min-height: 100%;  /* Minimum height of 100% viewport height */
+      }
+
+    /* ================================================================
+     Page STYLES - the body - LAYOUT STYLES
+     ================================================================ */
+
+     .container {     /* Flex Container */
+      display: flex;        /* makes container a flex container */
+      flex-wrap: wrap;     /* elements to wrap to the next line when there's not enough horizontal space. */
+      width: 100%;        /* ontainer spans the full width of its parent element. */
+      padding-right: 10px;
+      padding-left: 10px;
+      margin-right: auto;
+      margin-left: auto;
+      box-sizing: border-box; /* Ensure padding doesn't affect total widthof the container */
+     }
+ 
+  
+  .bottom {
+    position: absolute;
+    padding-right: 5px;
+    bottom: 2px;
+    width: 100%;
+    }
+  
+  .card {
+    margin-top: 20px;
+    /* Additional spacing from the landing content for better separation */
+    }
+  
+    .card-body .card-text {
+    font-size: 18px;
+    margin-bottom: 20px;
+    /* Spacing between paragraphs */
+    }
+  
+   .card.rounded.shadow.p-4.mt-4 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%; 
+    max-width: 100%; /* Sets the maximum width of the card to 89% of its parent container */
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    box-sizing: border-box;
+    }
+  
+   /* On screens smaller than 768px, adjust the card width */
+   @media screen and (max-width: 767px) {
+    .card-responsive {
+        width: 95%;     /* On smaller screens, use a slightly higher width to maximize space */
+      }
+      }
+  
+   .wider-column {
+    min-width: 400px;
+    }
+  
+   .wider-container {
+    width: 90%;  /* or any other value or max-width */
+   }
+  
+   .wrap-text {
+    white-space: normal !important; 
+    word-wrap: break-word; 
+   }
+  
+   /* Flex Items */
+   .item {
+    flex: 1; /* Allow items to grow and shrink */
+    }
+  
+   /* Image responsiveness
+    img {
+    max-width: 100%;
+    height: auto;
+    }
+   */
+
+    /* ================================================================
+    Home- landing page STYLES 
+     ================================================================ */
+
+     .landing{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      margin: 1rem 0;
+      padding: 1rem 0;
+     }
+  
+     .landing-header {   
+      display: flex;
+      margin: 2rem 0;
+      padding: 1rem 0;
+      flex-wrap: wrap;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      margin: 2rem 0;
+      padding: 1rem 0;
+      position: relative; 
+      font-family: Arial, sans-serif;
+      font-size: 72px;
+      font-weight: bold;
+      color: #07bae9;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .landing main {
+      flex-basis:100%;
+      background-color: bisque;
+      Padding:1rem
+      }
+  
+      .landing section{
+        Flex-basis:50%;
+        margin:1rem 0;
+        background-color:lightblue;
+        padding:1rem
+        }
+        
+        .landing section:last-child{
+        Background-color: #baba55;
+        }
+    
+    .landing-imageLocation {   
+      display: flex; /* Make it a flex container */
+      flex-direction: column; /* Stack items vertically */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .landing-image {   
+      margin: auto; /* Center the image specifically */
+    }
+    
+   .landing-maintext {   /* home page- content style */
+    display: flex; /* Make it a flex container */
+    font-family: Arial, sans-serif;
+    font-size: 26px;    /* Slightly increased for better readability */
+    color: black;
+    justify-content: center; /* Center horizontally */
+    margin-top: 20px;
+    margin-bottom: 40px;
+    /* Additional spacing before the image for better layout */
+    }
+
+    .landing-subtext {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    font-size: 20px;    /* Slightly increased for better readability */
+  }
+
+  .list {
+    text-align: center;
+    padding-left: 0;  /* Remove default padding */
+    margin-left: 20px; /* Adjust this value as needed */
+    list-style-position: inside; /* Align bullet points */
+    font-family: Arial, sans-serif;
+    font-size: 20px;    /* Slightly increased for better readability */
+}
+
+  
+     /* Style for the container in the Authentication Section */
+  .landing-Authentication-card{
+    display: flex; /* Ensures flexbox layout */
+    justify-content: center; /* Centers the content horizontally */
+    margin-top: 1.5rem; /* Top margin (my-4 represents Y-axis margin) */
+    margin-bottom: 1.5rem; /* Bottom margin (my-4 represents Y-axis margin) */
+    padding: 1rem; /* Adds some padding inside the container */
+    box-shadow: 0 4px 8px rgba(151, 122, 122, 0.1); /* Optional: Adds a subtle shadow for depth */
+    background-color: #f8f9fa; /* Optional: Sets a background color */
+    border-radius: 8px; /* Optional: Rounds the corners of the container */
+    font-family: Arial, sans-serif;
+    font-size: 38px;
+   }
+  
+  /* Additional styling for a responsive layout */
+  @media (max-width: 700px) {
+    .container.d-flex.justify-content-center.my-4 {
+        flex-direction: column; /* Stacks elements vertically on smaller screens */
+        padding: 1rem 0.5rem; /* Adjusts padding for smaller screens */
+    }
+  }
+
+
+
+/* ================================================================
+    CARD STYLES   - RESPONISVE-Elements adapts to different screen sizes 
+     ================================================================ */
+  
+     .custom-card {
+      background-color: #ffffff;
+      width: 100%;
+      border: 2px solid;      /* sets a border */
+      border-radius: 5px;     /* rounded corners */
+      box-shadow: 0 8px 18px  #07bae9 rgba(0, 0, 0, 0.1); /* shadow effect */
+      padding: 10px;          /* inner spacing */
+      margin-top: 10px;       /* space above the card */
+      margin-bottom: 10px;   /* space below the card */
+      }
+  
+  .custom-card-Home  {
+    width: auto;          /* Adjusts width based on the content */
+    max-width: 100%;        /* Ensures the card does not exceed the viewport's width */
+    background-color: #fff;
+    border: 6px solid;      /* sets a border */
+    border-radius: 5px;     /* rounded corners */
+    box-shadow: 20 8px 18px   #2569a1 rgba(0, 0, 0, 0.1); /* shadow effect */
+    padding: 10px;          /* inner spacing */
+    margin-top: 10px;       /* space above the card */
+    margin-bottom: 20px;   /* space below the card */
+    font-family: Arial, sans-serif;
+    }
+
+    .custom-card-background {
+      display: flex;
+      flex-direction: column; /* Adjust flex direction for better stacking on smaller screens */
+      align-items: left;    /* Aligns children in the center */
+      margin-left: auto;
+      margin-right: auto;
+      width: auto;
+      max-width: 100%;
+      background-color: #78adc2;
+      border: 2px solid;
+      border-radius: 5px;
+      box-shadow: 0 8px 18px #4f81c5 rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+  
+  .custom-card-inner {
+      display: flex;
+      flex-direction: column; /* Stacks child elements vertically */
+      width: auto;
+      max-width: 100%;
+      background-color: #fff;
+      border: 2px solid;
+      border-radius: 5px;
+      box-shadow: 0 8px 18px #4f81c5 rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-family: Arial, sans-serif;
+      overflow-x: auto; /* Enables horizontal scrolling for overflowing content */
+  }
+  
+  .custom-card-top {
+      display: flex;
+      flex-wrap: wrap; /* Allows child elements to wrap in smaller screens */
+      width: auto;
+      max-width: 100%;
+      align-items: center;
+      justify-content: space-around;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 8px 18px #4f81c5 rgba(0, 0, 0, 0.1);
+      padding: 5px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      font-family: Arial, sans-serif;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+      .custom-card-background, .custom-card-inner, .custom-card-top {
+          width: 100%; /* Full width on smaller screens */
+          padding: 10px; /* Adjust padding for smaller screens */
+      }
+  }
+  
+
+
+  /* ================================================================
+     TABLE STYLES
+     ================================================================ */
+
+
+  /*-------------------------table-responsive -----------------------------*/
+  /* Responsive Tables */
+  .table-responsive {
+    display: flex;
+    width: 100%;       /* Table takes up 100% of the container */
+    overflow-x: auto;  /* Enables horizontal scrolling for smaller devices */
+    max-width: 100%;   /* Prevents the table from exceeding the container's width */
+    margin-bottom: 20px; /* Spacing below the table */
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .table-responsive > .table {
+    margin-bottom: 0;
+  }
+  
+  /* General table styles */
+  table th, table td {
+    min-width: 120px; 
+    padding: 12px 8px;
+    white-space: normal;
+    line-height: 1.5;
+    vertical-align: middle; /* Align content to the middle of the cell */
+  }
+  
+  /* Enhancing padding and adding word wrap */
+  .table th, .table td {
+      padding: 12px 15px; /* Adjust this as needed */
+      word-wrap: break-word; /* This allows the text to wrap */
+      max-width: 250px; /* This ensures the width of the cell doesn't become too wide */
+  }
+  
+  .table th:nth-child(1), .table td:nth-child(1) { 
+    max-width: 30px; /* Adjust to your preferred width */
+    padding-left: 5px; 
+    padding-right: 5px;
+  }
+  
+  /* If you have some specific columns that require more or less spacing, you can target them by class or nth-child */
+  .table th:nth-child(3), .table td:nth-child(3) { /* For example, targeting the third column */
+      padding-left: 20px; /* You can adjust these values */
+      padding-right: 20px;
+  }
+  
+  .table th i {
+    font-size: 12px; /* Adjust font size if necessary */
+    margin-left: 5px; /* Spacing between column title and icon */
+    vertical-align: middle; /* Aligns the icon with the text */
+    cursor: pointer; /* Makes the icon appear clickable */
+  }
+  
+  .table th:hover {
+    background-color: #f5f5f5; /* Light gray background on hover */
+    cursor: pointer; /* Makes the entire header appear clickable */
+  }
+  
+  /* Style for contents of tables that Could be long such as notes/ descriptions in customer details or survey notes.
+      */
+  
+  .truncate {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Number of lines to display before truncating */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+  
+  .table-striped  tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+  }
+  
+  .table-striped tbody tr:hover {
+    background-color: #07bae9; /* Change to your desired hover color */
+  }
+  
+
+  /* ================================================================
+     NAVIGATION STYLES
+     ================================================================ */
+  /* 
+     ====================================
+     NAVBAR STYLES
+     ====================================
+  */
+  
+  /* General Navbar Formatting */
+  .navbar {
+    width: 100%;
+    
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    }
+  
+  /* Navbar Brand Text Formatting */
+  a.navbar-brand {
+    background-color: #f5f5f5;
+    color: #333; /* Text color for brand */
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    }
+  
+  /* Navbar Link Formatting */
+  .nav-item a.nav-link {
+    color: #fff; /* Text color for nav links */
+    padding: 10px 15px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    }
+  
+  /* Navbar Link Hover Effect */
+  .nav-item a.nav-link:hover, .nav-item a.nav-link:focus {
+    background-color:  #07bae9; /* Darker shade for hover state */
+    color: #f5f5f5; /* Light text color on hover */
+    border-radius: 3px;
+    }
+  
+  /* Dropdown Menu Formatting */
+  .dropdown-menu {
+    background-color: #f5f5f5; /* Light background for dropdown */
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for dropdown */
+    }
+  
+  /* Dropdown Item Formatting */
+  .dropdown-item {
+    color: #333; /* Dark text color for dropdown items */
+    transition: background-color 0.3s, color 0.3s;
+    }
+  
+  /* Dropdown Item Hover Effect */
+  .dropdown-item:hover, .dropdown-item:focus {
+    background-color: #07bae9 ; /* Primary color for hover state */
+    color: #fff; /* Light text color on hover */
+    }
+  
+  /* Active State Formatting */
+  .nav-link.active, .dropdown-item.active {
+    background-color:  #07bae9; /* Darker shade for active state */
+    color: #f5f5f5; /* Light text color for active state */
+    }
+  
+  /* ================================================================
+     Button STYLES
+     ================================================================ */
+  
+  /* Button Colors */
+  .btn{
+    color: #000; /* Change this to black */
+    border: 1px solid #07bae9 ;
+    background: #e8f0fe ;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family:Arial, sans-serif;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.8s;
+    position: relative;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    }
+  .btn1,.btn2{
+    color: #000; /* Change this to black */
+    }
+  .btn1:hover,.btn2:hover{
+    color:#07bae9;
+    font-size: 40px;
+    background: #e8f0fe; 
+    }
+  
+  .btn::before{
+    content: "";
+    /* position: absolute;
+    left: 0; */
+    width: 100%;
+    height: 0%;
+    background: #3498db;
+    z-index: -1;
+    transition: 0.8s;
+    }
+  .btn1::before{
+    top: 0;
+    border-radius: 0 0 50% 50%;
+    }
+  .btn2::before {
+    bottom: 0;
+    border-radius: 50% 50% 0 0;
+    }
+  
+  .btn1:hover::before,.btn2:hover::before{
+    height: 180%;
+    background: #3498db;
+    }
+  
+  /* .btn btn-primary{
+    border: 1px solid #07bae9 ;
+    background: #e8f0fe ;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.8s;
+    position: relative;
+    overflow: hidden;
+  } */
+  
+
+    /* ================================================================
+       Footer STYLES
+       ================================================================ */
+      
+       .footer {
+        margin: 1rem auto;
+        text-align: center;
+        position:relative;
+        bottom: 0;
+        width: 100%;
+        white-space: nowrap;
+        line-height: 40px;
+      }
+      
+  /* Footer Links */
+  .Footer a {
+    color: #07bae9; /* Link color */
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s;
+  }
+  
+  .Footer a:hover {
+    color: #3498db; /* Hover link color */
+  }
+  
+  /* Footer Social Icons (Replace with your own icons) */
+  /* .Footer .social-icons {
+    margin-top: 20px;
+  }
+  
+  .Footer .social-icons a {
+    color: #fff;
+    font-size: 24px;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  
+  /* Footer Social Icons Hover (Replace with your own icons) */
+  /* .Footer .social-icons a:hover {
+    color: #07bae9;
+  }
+  
+  /* Footer Copyright Text */
+  /* .Footer .copyright {
+    margin-top: 20px;
+    font-size: 16px;
+  } */
+  
+
+   /* ================================================================
+       Images STYLES
+       ================================================================ */
+
+
+        /* ================================================================
+     Images
+     ================================================================ */
+     .image {
+      width: 400px;
+      border: 5px solid  blue;
+      /* Light gray border */
+      box-shadow: 2px 10px 60px  rgb(13, 13, 141);
+      /* Subtle shadow */
+      border-radius: 5px;
+      /* Rounded corners */
+  
+     }
+  
+     /* body:after{
+      position:absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      z-index: -1;
+      content: url(..wwwroot\Images\APGLogo.png) url('../Images/GlassIMG/Wired.png');
+     }
+  
+   /* BackGround Image */
+  /* .ImageBackGround {
+    width: 400px;
+    height: 500px;
+    background-image: url('../Images/GlassIMG/Glass.png'), ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: center;
+  }
+  
+  .ImageBackGround:hover {
+    width: 400px;
+    height: 500px;
+    background-image: url('../Images/GlassIMG/Wired.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: center;
+  } */ 
+
+       .image-container {
+        display: flex;          /* Use flexbox layout */
+        justify-content: center; /* Center content horizontally */
+        align-items: center;    /* Center content vertically */
+        flex-wrap: wrap;        /* Allow items to wrap as needed */
+    
+        /* Optional styling */
+        border: 2px solid #ccc; /* Add a border for visibility */
+        padding: 20px;          /* Add some padding */
+        margin: 20px;           /* Add some margin */
+        max-width: 80%;         /* Maximum width of the container */
+        margin-left: auto;      /* Center the container itself */
+        margin-right: auto;     /* Center the container itself */
+    }
+    
+    .image-container img {
+        max-width: 100%;        /* Ensure image does not overflow its container */
+        height: auto;           /* Keep image aspect ratio */
+        margin: 10px;           /* Margin around each image */
+    }
+
+  .image-boxes {
+    display: flex;
+    justify-content: space-around;
+}
+
+.box {
+    width: 30%; /* Adjust the width as per your requirement */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.box img {
+    width: 100%; /* Makes image fill the container */
+    height: auto; /* Maintains the aspect ratio of the image */
+}
+
+.card.border.rounded.shadow.p-4 {
+  height: auto; /* Set the height to auto to expand based on content */
+}
+
+action-button-section {
+  /* Your existing styles here */
+  min-height: 300px; /* Adjust the value as needed */
+}
+
+.expanding-div {
+  display: inline-block; /* Make the div an inline-block element */
+  /* Other styles for the div */
+}
+
+
+  /* ================================================================
+     FONT STYLES for buttons
+     ================================================================ */
+  
+     .bold-blue-text {
+      color: #07bae9;
+      font-weight: bold;
+  }
+  
+  /* Tick and Cross Badges */
+  .badge-success-tick, .badge-danger-cross {
+    display: inline-flex;
+    padding: 0.25em 0.5em; 
+    font-size: 3rem; 
+    font-family: Arial, sans-serif; 
+  }
+  
+  .badge-success-tick::before { content: "✔"; color: rgb(45, 218, 97); }
+  .badge-danger-cross::before { content: "✖"; color: rgb(235, 15, 15); }
+  
+
+  .page-header {   
+    display: flex;
+    margin: 1px;
+    padding: 1px;
+    flex-wrap: wrap;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: relative; 
+    font-family: Arial, sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    color: #07bae9;
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* ================================================================
+      Font Styles
+     ================================================================ */
+    
+     p a {
+      font-size: 1.5rem;
+      background-color: #07bae9;
+      margin: 1rem auto;
+      padding: 1rem;
+      text-align: center;
+      font-family: Arial, sans-serif;
+     }
+  
+  
+
+
+   /* CSS MIN LINK -https://www.toptal.com/developers/cssminifier        * FAVICON.IO link: https://www.favicon.cc/?*/

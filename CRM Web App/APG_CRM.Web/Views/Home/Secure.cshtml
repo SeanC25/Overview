@@ -1,0 +1,37 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Color</title>
+    <style>
+        #container {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            transition: background-color 0.5s;
+        }
+    </style>
+</head>
+
+<body>
+<div id="container">
+    <!-- Your content goes here -->
+</div>
+<button onclick="changeColor()">Click Me</button>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Secure Page</h4>
+        <p class="card-text">This page is only visible if you are Authorized.</p>
+    </div>
+</div>
+
+</body>
+
+
+<script>
+    function changeColor() {
+        const container = document.getElementById('container');
+        container.style.backgroundColor = 'green';
+    }
+</script>

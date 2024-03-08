@@ -1,0 +1,125 @@
+@model APG_CRM.Web.Models.CustomerViewModel
+
+<div class="custom-card-background">
+
+    <div class="custom-card-inner">
+
+          <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Customer", "Customers"), ($"", $"Customer Name: {Model.Name}"), })>
+
+        <h1 class="page-header">Customer Details</h1>
+
+        <div class="card rounded shadow p-4">
+            <!-- Main Row -->
+            <div class="row">
+                <!-- Customer Details Column -->
+                <div class="col-md-4">
+                    <!-- Each Pair in its own Row -->
+                     <div class="row">
+                        <dt class="col-4">Customer ID</dt>
+                        <dd class="col-8">@Model.Id</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4">Date Of 1st Contact</dt>
+                        <dd class="col-8">@Model.DateEstablished.ToString("dd-MM-yyyy")</dd>
+                    </div>
+                    
+                    <div class="row">
+                        <dt class="col-4">Customer Name</dt>
+                        <dd class="col-8">@Model.Name</dd>
+                    </div>
+                    <div class="row">
+                   <dt class="col-4 pb-1">Customer Type</dt>
+                            <dd class="col-8 pb-1">@Model.Type</dd>
+                    </div>
+                    <div class="row">
+                                <dt class="col-4 pb-1">Customer Phone</dt>
+                            <dd class="col-8 pb-1">@Model.Phone</dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-4 pb-1">Customer Email</dt>
+                        <dd class="col-8 pb-1">@Model.Email </dd>
+                    </div>
+                    <div class="row">
+                                       <dt class="col-4 pb-1">Address</dt>
+                            <dd class="col-8 pb-1">@Model.Street, @Model.City, @Model.County</dd>
+                    </div>
+                    <div class="row">
+                            <dt class="col-4 pb-1">Customer PostCode</dt>
+                            <dd class="col-8 pb-1">@Model.PostCode</dd>
+                    </div>
+                    <div class="row">
+                       <dt class="col-4 pb-1">Payment Terms</dt>
+                            <dd class="col-8 pb-1">@Model.PaymentTerms</dd>     
+                    </div>
+                    <div class="row">
+                          <dt class="col-4 pb-1">Customer Description</dt>
+                            <dd class="col-8 pb-1">@Model.Description</dd>
+                    </div>
+                </div>  
+
+
+                <!-- Action Buttons Column -->
+                <div class="col-md-4">
+                      <!-- Action Buttons Column -->
+                 <!-- Navigation links -->
+                    <div class="col-md-4 d-flex flex-column align-items-start">
+                        <a asp-action="Index" class="btn btn-sm btn-outline-primary mb-2" aria-label="customer list">
+                            <i class="bi bi-list" title="customer list"></i>
+                            <span class="ms-1 d-none d-md-inline">All Customers</span>
+                        </a>
+
+                        @if (Model.PreviousId.HasValue) {
+                            <a asp-action="Details" asp-route-id="@Model.PreviousId.Value" class="btn btn-sm btn-outline-secondary" aria-label="previous customer">
+                                <i class="bi bi-arrow-left-circle-fill" title="Previous customer"></i>
+                                <span class="ms-1 d-none d-md-inline">Previous Customer</span>
+                            </a>
+                        }
+
+                        @if (Model.NextId.HasValue) {
+                            <a asp-action="Details" asp-route-id="@Model.NextId.Value"class="btn btn-sm btn-outline-secondary" aria-label="next customer">
+                                <i class="bi bi-arrow-right-circle-fill" title="next customer"></i>
+                                <span class="ms-1 d-none d-md-inline">Next Customer</span>
+                            </a>
+                        }
+
+                        <!-- Customer action links -->
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-success" aria-label="edit customer">
+                                <i class="bi bi-pen-fill" title="edit customer"></i>
+                                <span class="ms-1 d-none d-md-inline">Edit Customer</span>
+                            </a>
+
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-danger" aria-label="delete customer">
+                                <i class="bi bi-trash-fill" title="delete customer"></i>
+                                <span class="ms-1 d-none d-md-inline">Delete Customer</span>
+                            </a>
+
+                            <a asp-action="Create" asp-controller="Quotation" asp-route-customerId="@Model.Id" class="btn btn-primary">
+                                <i class="bi bi-bag-plus-fill" title="create quotation"></i>
+                            <span class="ms-1 d-none d-md-inline">Create Quotation</span>
+                            </a>
+
+                            @* <!-- passing the CustomerId from the current customer details page. -->
+                            <a href="@Url.Action("Create", "Quotation", new { customerId = Model.CustomerId })" class="btn btn-primary">
+                            <i class="bi bi-bag-plus-fill" title="create quotation"></i>
+                            <span class="ms-1 d-none d-md-inline">Create Quotation</span>
+                            </a> *@
+                            
+                    </div>
+                </div>
+                <!-- Quotation and New Section Column -->
+                <div class="col-md-4">
+                    <!-- Quotation Section -->
+                    <div class="card rounded shadow p-4 mb-1">
+                        <partial name="_PendingQuotations" model="Model.Quotations"/>
+                    </div>
+                </div>
+
+                 <!-- Quotation Section Row -->
+                    <div class="card rounded shadow p-4">
+                        <partial name="_CustomerQuotations" model="Model.Quotations"/> 
+                    </div>
+            </div>
+           
+        </div>
+    </div>
+</div>

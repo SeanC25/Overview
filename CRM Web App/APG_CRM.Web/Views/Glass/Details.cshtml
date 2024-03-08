@@ -1,0 +1,126 @@
+@* @model APG_CRM.Web.Models.Glass *@
+@model APG_CRM.Data.Entities.Glass
+
+@{
+    ViewData["Title"] = "Glass Details";
+}
+
+<div class="custom-card-background">
+
+    <div class="d-flex justify-content-center">
+
+        <div class="custom-card-inner">
+
+            <partial name="_BreadCrumbs" model=@(new [] { ("/", "Home"), ("/Glass", "Glass"), ("", " Glass Details")
+                }) />
+
+            <div class="card rounded shadow p-4">
+
+                <h1 class="page-header">@ViewData["Title"] </h1>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Type)</th>
+                            <td>@Model.Type</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Name)</th>
+                            <td>@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Thickness)</th>
+                            <td>@Model.Thickness</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.SheetSizeL)</th>
+                            <td>@Model.SheetSizeL</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.SheetSizeH)</th>
+                            <td>@Model.SheetSizeH</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PricePerSheet)</th>
+                            <td>@Model.PricePerSheet</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.BoxSheetQuantity)</th>
+                            <td>@Model.BoxSheetQuantity</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.SupplierId)</th>
+                            <td>
+                                @if (Model.Supplier != null)
+                                {
+                                    <a asp-controller="Supplier" asp-action="Details" asp-route-id="@Model.Supplier.Id"
+                                        class="btn btn-link" title="go to supplier details" alt="go to supplier details">
+                                        @Model.Supplier.Name
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span>Not available</span>
+                                }
+                            </td>
+                        </tr>
+                        @* <tr>
+                        <th>@Html.DisplayNameFor(model => model.SupplierId)</th>
+                        <td>@Model.Supplier?.Name</td>
+                        </tr> *@
+                    </tbody>
+                </table>
+
+                <!-- Partial used for images Image --->
+                <partial name="_GlassImage" />
+
+                <div class="d-flex justify-content-between mt-4">
+
+                    <div class="d-inline-flex">
+                        <!-- Back to List -->
+                        <a asp-action="Index" class="btn btn-secondary mr-2" title="Back to List">
+                            <i class="bi bi-list"></i> All Glass
+                        </a>
+
+                        <!-- Previous Glass -->
+                        @if (Model.PreviousGlassId.HasValue)
+                        {
+                            <a asp-action="Details" asp-route-id="@Model.PreviousGlassId.Value" class="btn btn-light"
+                                title="Previous Glass">
+                                <i class="bi bi-arrow-left"></i>
+                            </a>
+                        }
+                        <a asp-condition="@User.HasOneOfRoles("admin,support,manager")" asp-action="Edit"
+                            asp-controller="Glass" asp-route-id="@Model.Id" class="btn btn-warning" title="Edit">
+                            <i class="bi bi-pen-fill"></i>
+                        </a>
+                        <a asp-condition="@User.HasOneOfRoles("admin,support,manager")" asp-action="Details"
+                            asp-controller="Glass" asp-route-id="@Model.Id" class="btn btn-info" title="Details">
+                            <i class="bi bi-info-circle"></i>
+                        </a>
+                        <a asp-condition="@User.HasOneOfRoles("admin,support,manager")" asp-action="Delete"
+                            asp-controller="Glass" asp-route-id="@Model.Id" class="btn btn-outline-danger"
+                            title="Delete" onclick="return confirm('Are you sure you want to delete this item?');">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+
+                        <!-- Next Glass -->
+                        @if (Model.NextGlassId.HasValue)
+                        {
+                            <a asp-action="Details" asp-route-id="@Model.NextGlassId.Value" class="btn btn-light"
+                                title="Next Glass">
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
